@@ -1,0 +1,9 @@
+:user {username, password_digest, admin, :has_many_characters } 
+	views:
+	User.new :user signup form
+	Session.new :user-login form (routed through sessions controller)
+	User.view :user(:id)
+	User.index :user index page
+	:User.edit user-edit form
+:character	
+:character builder form(s?)
