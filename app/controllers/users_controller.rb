@@ -50,8 +50,8 @@ before_action :correct_user, only: [:show]
 		
 	end
 #####################
-	def user_params # attributes of user object passed as a hash
-		params.require(:user).permit(:email, :password, :password_confirmation)
+	def user_params # selected attributes of user object passed as a hash
+		params.require(:user).permit(:username, :email, :password, :password_confirmation)
 	end
 
 	def logged_in_user
