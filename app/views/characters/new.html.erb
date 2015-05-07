@@ -1,0 +1,24 @@
+<h1> create a new character </h1>
+
+	<%= form_for(@character) do |f| %>
+	 	<%= f.label :strength %>
+	 	<%= f.select(:strength, [['10', 10], ['11', 11], ['12', 12], ['13', 13]]) %>
+
+		<%= f.label :dexterity%>
+		<%= f.select(:dexterity, [['10', 10], ['11', 11], ['12', 12], ['13', 13]]) %>
+
+		<%= f.label :constitution%>
+		<%= f.select(:constitution, [['10', 10], ['11', 11], ['12', 12], ['13', 13]]) %>
+
+		<%= f.label :intelligence%>
+		<%= f.select(:intelligence, [['10', 10], ['11', 11], ['12', 12], ['13', 13]]) %>
+
+		<%= f.label :wisdom%>
+		<%= f.select(:wisdom, [['10', 10], ['11', 11], ['12', 12], ['13', 13]]) %>
+
+		<%= f.label :charisma%>
+		<%= f.select(:charisma, [['10', 10], ['11', 11], ['12', 12], ['13', 13]]) %>
+
+		<%= f.submit "Create character" %>
+
+	<%end%>

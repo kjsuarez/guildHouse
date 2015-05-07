@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  strength: MyString
+  dexterity: MyString
+  constitution: MyString
+  intelligence: MyString
+  wisdom: MyString
+  charisma: MyString
+
+two:
+  strength: MyString
+  dexterity: MyString
+  constitution: MyString
+  intelligence: MyString
+  wisdom: MyString
+  charisma: MyString

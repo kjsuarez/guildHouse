@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
   resources :users  
+  resources :characters
     get 'all_users' => 'users#index'
     get 'signup' => 'users#new'
     

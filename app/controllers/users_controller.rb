@@ -14,8 +14,7 @@ before_action :correct_user, only: [:show]
 	end
 
 	def new
-		@user = User.new
-		puts @user
+		@user = User.new		
 	end
 
 	def create
