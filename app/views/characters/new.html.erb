@@ -1,24 +1,68 @@
+<script type="text/javascript" src="/javascripts/new_character.js"></script>
 <h1> create a new character </h1>
+	<button id="button" onclick = "buffer_function()"> roll dice </button>
 
 	<%= form_for(@character) do |f| %>
 	 	<%= f.label :strength %>
-	 	<%= f.select(:strength, [['10', 10], ['11', 11], ['12', 12], ['13', 13]]) %>
+	 	<%= f.select(:strength, [['-'],[''],[''],[''],[''],[''],['']]) %>
 
 		<%= f.label :dexterity%>
-		<%= f.select(:dexterity, [['10', 10], ['11', 11], ['12', 12], ['13', 13]]) %>
+		<%= f.select(:dexterity, [['-'],[''],[''],[''],[''],[''],['']]) %>
 
 		<%= f.label :constitution%>
-		<%= f.select(:constitution, [['10', 10], ['11', 11], ['12', 12], ['13', 13]]) %>
+		<%= f.select(:constitution, [['-'],[''],[''],[''],[''],[''],['']]) %>
 
 		<%= f.label :intelligence%>
-		<%= f.select(:intelligence, [['10', 10], ['11', 11], ['12', 12], ['13', 13]]) %>
+		<%= f.select(:intelligence, [['-'],[''],[''],[''],[''],[''],['']]) %>
 
 		<%= f.label :wisdom%>
-		<%= f.select(:wisdom, [['10', 10], ['11', 11], ['12', 12], ['13', 13]]) %>
+		<%= f.select(:wisdom, [['-'],[''],[''],[''],[''],[''],['']]) %>
 
 		<%= f.label :charisma%>
-		<%= f.select(:charisma, [['10', 10], ['11', 11], ['12', 12], ['13', 13]]) %>
+		<%= f.select(:charisma, [['-'],[''],[''],[''],[''],[''],['']]) %>
 
 		<%= f.submit "Create character" %>
 
 	<%end%>
+
+
+
+
+
+
+
+
+<% if false %>
+
+		<button id="button" onclick = "buffer_function()"> roll dice </button>
+		<h1 id="num"></h1>
+
+		str:  <select id="str_select" oninput = "buffer_str_select()">
+		  <option value="" id = "0"> blank </option>
+		  <option value="" id = "1"> </option>
+		  <option value="" id = "2"> </option>
+		  <option value="" id = "3"> </option>
+		  <option value="" id = "4"></option>
+		</select>
+
+		 dex:  <select id="dex_select" oninput = "buffer_dex_select()">
+		  <option value="" id = "0"> blank </option>
+		  <option value="" id = "1"></option>
+		  <option value="" id = "2"></option>
+		  <option value="" id = "3"></option>
+		  <option value="" id = "4"></option>
+		</select>
+
+		 con:  <select id="con_select" oninput = "buffer_con_select()">
+		  <option value="" id = "0"> blank </option>
+		  <option value="" id = "1"></option>
+		  <option value="" id = "2"></option>
+		  <option value="" id = "3"></option>
+		  <option value="" id = "4"></option>
+		</select>
+
+		<button id="button2"> check selected </button>
+		<h2 id="thing"></h2>
+
+
+<% end %>
