@@ -1,5 +1,11 @@
 <script type="text/javascript" src="/javascripts/new_character.js"></script>
 <h1> create a new character </h1>
+	
+	<p>ok lets build a character.</p>
+	<p> start by rolling some dice.
+		Then set your ability scores
+	 </p>
+
 	<button id="button" onclick = "buffer_function()"> roll dice </button>
 
 	<%= form_for(@character) do |f| %>
@@ -21,48 +27,14 @@
 		<%= f.label :charisma%>
 		<%= f.select(:charisma, [['-'],[''],[''],[''],[''],[''],['']]) %>
 
+		<%= f.label :race %>
+		<%= f.select(:race, [['Human'],['Elf'],['Halfelf'],['Dwarf'],['Halfling'],['Gnome'],['Halfork']]) %>
+
 		<%= f.submit "Create character" %>
 
 	<%end%>
 
+	<%if false%>
+	[['Human'],['Elf'],['Halfelf'],['Dwarf'],['Halfling'],['Gnome'],['Halfork']]) %>
+		<%end%>
 
-
-
-
-
-
-
-<% if false %>
-
-		<button id="button" onclick = "buffer_function()"> roll dice </button>
-		<h1 id="num"></h1>
-
-		str:  <select id="str_select" oninput = "buffer_str_select()">
-		  <option value="" id = "0"> blank </option>
-		  <option value="" id = "1"> </option>
-		  <option value="" id = "2"> </option>
-		  <option value="" id = "3"> </option>
-		  <option value="" id = "4"></option>
-		</select>
-
-		 dex:  <select id="dex_select" oninput = "buffer_dex_select()">
-		  <option value="" id = "0"> blank </option>
-		  <option value="" id = "1"></option>
-		  <option value="" id = "2"></option>
-		  <option value="" id = "3"></option>
-		  <option value="" id = "4"></option>
-		</select>
-
-		 con:  <select id="con_select" oninput = "buffer_con_select()">
-		  <option value="" id = "0"> blank </option>
-		  <option value="" id = "1"></option>
-		  <option value="" id = "2"></option>
-		  <option value="" id = "3"></option>
-		  <option value="" id = "4"></option>
-		</select>
-
-		<button id="button2"> check selected </button>
-		<h2 id="thing"></h2>
-
-
-<% end %>

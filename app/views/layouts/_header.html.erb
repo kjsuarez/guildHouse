@@ -2,7 +2,7 @@
 	<%= link_to "edit profile", edit_user_path(current_user) %>
 	<%= link_to "profile", user_path(current_user) %>
 	<%= link_to "Log out", logout_path, method: "delete" %> 
-
+	<%= link_to "build a character!", character_creater_path%>
 <% else %>
 	<%= link_to "sign up",signup_path, class: "btn btn-lg btn-primary" %>
 	<%= link_to "login",login_path, class: "btn btn-lg btn-primary" %>

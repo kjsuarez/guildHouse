@@ -112,6 +112,7 @@ window.onload = execute_all;
 			function buffer_function(){  
 			    var z = assign_nums();
 			    test_loop(z);
+			    execute_all();
 			}
 
 			function buffer_str_select(){
@@ -140,6 +141,8 @@ window.onload = execute_all;
 			
 			//document.getElementById("button").onclick = buffer_function;
 			function execute_all(){
+
+				console.log("here");
 				document.getElementById("character_strength").oninput = buffer_str_select;
 				document.getElementById("character_dexterity").oninput = buffer_dex_select;
 				document.getElementById("character_constitution").oninput = buffer_con_select;
