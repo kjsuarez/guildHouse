@@ -18,6 +18,10 @@ class CharactersController < ApplicationController
 	def show
 		@character = Character.find(params[:id])	
 	end
+
+	def index
+		@characters = Character.where(user_id: current_user.id)
+	end
 ###########################
 
 	def character_params
@@ -34,9 +38,15 @@ class CharactersController < ApplicationController
 
 	def acceptible_values
 		@character = Character.new(character_params)
-		if @character.strength == "-"
-			redirect_to login_url
-		end
+		
+			if @character.strength.to_i ==0 || @character.dexterity.to_i == 0||
+				@character.constitution.to_i ==0|| @character.intelligence.to_i ==0||
+				@character.wisdom.to_i ==0|| @character.charisma.to_i ==0	
+				
+				flash[:danger] = "login to create a character"
+	        	redirect_to character_creater_url 	
+			end
 	end
-
 end
+
+

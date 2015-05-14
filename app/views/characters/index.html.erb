@@ -1,0 +1,7 @@
+<ul class="characters">
+  <% @characters.each do |character| %>
+    <li>
+      <%= link_to character.race, character %>
+    </li>
+  <% end %>
+</ul>
