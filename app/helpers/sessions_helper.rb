@@ -17,4 +17,5 @@ module SessionsHelper
 		@current_user = nil
 		puts "boom #{@current_user}"
 	end
+
 end

@@ -1,11 +1,16 @@
+<%= link_to "home",root_path, class: "btn btn-lg btn-primary" %>
 <% if logged_in? # method deffined in sessions_helper %>
-	<%= link_to "edit profile", edit_user_path(current_user) %>
 	<%= link_to "profile", user_path(current_user) %>
-	<%= link_to "Log out", logout_path, method: "delete" %> 
+	<%= link_to "edit profile", edit_user_path(current_user) %>		
 	<%= link_to "build a character!", character_creater_path%>
+	
+	<% unless current_user.Characters.nil?%>	
+		<%= link_to "your characters", "/characters" %>
+	<% end %>
+	
+	<%= link_to "Log out", logout_path, method: "delete" %> 
 <% else %>
 	<%= link_to "sign up",signup_path, class: "btn btn-lg btn-primary" %>
 	<%= link_to "login",login_path, class: "btn btn-lg btn-primary" %>
 <% end %>
 
-<%= link_to "home",root_path, class: "btn btn-lg btn-primary" %>

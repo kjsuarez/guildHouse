@@ -9,32 +9,40 @@
 	<button id="button" onclick = "buffer_function()"> roll dice </button>
 
 	<%= form_for(@character) do |f| %>
-	 	<%= f.label :strength %>
-	 	<%= f.select(:strength, [['-'],[''],[''],[''],[''],[''],['']]) %>
-
-		<%= f.label :dexterity%>
-		<%= f.select(:dexterity, [['-'],[''],[''],[''],[''],[''],['']]) %>
-
-		<%= f.label :constitution%>
-		<%= f.select(:constitution, [['-'],[''],[''],[''],[''],[''],['']]) %>
-
-		<%= f.label :intelligence%>
-		<%= f.select(:intelligence, [['-'],[''],[''],[''],[''],[''],['']]) %>
-
-		<%= f.label :wisdom%>
-		<%= f.select(:wisdom, [['-'],[''],[''],[''],[''],[''],['']]) %>
-
-		<%= f.label :charisma%>
-		<%= f.select(:charisma, [['-'],[''],[''],[''],[''],[''],['']]) %>
-
+		<p>
+	 		<%= f.label :strength %>
+	 		<%= f.select(:strength, [['-'],[''],[''],[''],[''],[''],['']]) %>
+		</p>
+		<p>
+			<%= f.label :dexterity%>
+			<%= f.select(:dexterity, [['-'],[''],[''],[''],[''],[''],['']]) %>		
+		</p>
+		<p>
+			<%= f.label :constitution%>
+			<%= f.select(:constitution, [['-'],[''],[''],[''],[''],[''],['']]) %>
+		</p>
+		<p>
+			<%= f.label :intelligence%>
+			<%= f.select(:intelligence, [['-'],[''],[''],[''],[''],[''],['']]) %>
+		</p>
+		<p>
+			<%= f.label :wisdom%>
+			<%= f.select(:wisdom, [['-'],[''],[''],[''],[''],[''],['']]) %>
+		</p>
+		<p>
+			<%= f.label :charisma%>
+			<%= f.select(:charisma, [['-'],[''],[''],[''],[''],[''],['']]) %>
+		</p>
+		<p>
 		<%= f.label :race %>
 		<%= f.select(:race, [['Human'],['Elf'],['Halfelf'],['Dwarf'],['Halfling'],['Gnome'],['Halfork']]) %>
-
+		</p>				
+		<p>
+		<%= f.label :character_class %>
+		<%= f.select(:character_class, [['Warrior'],['Paladin'],['Druid'],['Monk'],['Bard'],['Bararian'],['Wizard'],['sorcerer'],['rogue']]) %>
+		</p>
 		<%= f.submit "Create character" %>
 
 	<%end%>
 
-	<%if false%>
-	[['Human'],['Elf'],['Halfelf'],['Dwarf'],['Halfling'],['Gnome'],['Halfork']]) %>
-		<%end%>
 

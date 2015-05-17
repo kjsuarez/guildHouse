@@ -1,10 +1,32 @@
 <h1> Character: </h1>
+<p> 
+	str score: <%= json_to_score(@character.strength)["score"] %> 
+	str mod: <%= json_to_score(@character.strength)["mod"] %>
+</p>
+<p>
+	dex score: <%= json_to_score(@character.dexterity)["score"] %> 
+	dex mod: <%= json_to_score(@character.dexterity)["mod"] %>
+</p>	
+<p>
+	con score: <%= json_to_score(@character.constitution)["score"] %> 
+	con mod: <%= json_to_score(@character.constitution)["mod"] %>
+</p>
+<p>
+	int score: <%= json_to_score(@character.intelligence)["score"] %> 
+	int mod: <%= json_to_score(@character.intelligence)["mod"] %>
+</p>
+<p>
+	wis score: <%= json_to_score(@character.wisdom)["score"] %> 
+	wis mod: <%= json_to_score(@character.wisdom)["mod"] %>
+</p>
+<p>
+	cha score: <%= json_to_score(@character.charisma)["score"] %> 
+	cha mod: <%= json_to_score(@character.charisma)["mod"] %>
+</p>
 
-str: <%= @character.strength %>
-dex: <%= @character.dexterity %>
-con: <%= @character.constitution %>
-int: <%= @character.intelligence %>
-wis: <%= @character.wisdom %>
-cha: <%= @character.charisma %>
+
+
+
+
 
 race: <%= @character.race %>
