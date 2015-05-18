@@ -10,7 +10,8 @@ before_action :correct_user, only: [:show]
 	end
 
 	def show
-		@user = User.find(params[:id])					
+		@user = User.find(params[:id])
+		@characters = Character.where(user_id: current_user.id)					
 	end
 
 	def new

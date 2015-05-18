@@ -1,32 +1,47 @@
+<% skill_set = json_to_hash(@character.skill_set).to_a %> 
+
 <h1> Character: </h1>
 <p> 
-	str score: <%= json_to_score(@character.strength)["score"] %> 
-	str mod: <%= json_to_score(@character.strength)["mod"] %>
+	str score: <%= json_to_hash(@character.strength)["score"] %> 
+	str mod: <%= json_to_hash(@character.strength)["mod"] %>
 </p>
 <p>
-	dex score: <%= json_to_score(@character.dexterity)["score"] %> 
-	dex mod: <%= json_to_score(@character.dexterity)["mod"] %>
+	dex score: <%= json_to_hash(@character.dexterity)["score"] %> 
+	dex mod: <%= json_to_hash(@character.dexterity)["mod"] %>
 </p>	
 <p>
-	con score: <%= json_to_score(@character.constitution)["score"] %> 
-	con mod: <%= json_to_score(@character.constitution)["mod"] %>
+	con score: <%= json_to_hash(@character.constitution)["score"] %> 
+	con mod: <%= json_to_hash(@character.constitution)["mod"] %>
 </p>
 <p>
-	int score: <%= json_to_score(@character.intelligence)["score"] %> 
-	int mod: <%= json_to_score(@character.intelligence)["mod"] %>
+	int score: <%= json_to_hash(@character.intelligence)["score"] %> 
+	int mod: <%= json_to_hash(@character.intelligence)["mod"] %>
 </p>
 <p>
-	wis score: <%= json_to_score(@character.wisdom)["score"] %> 
-	wis mod: <%= json_to_score(@character.wisdom)["mod"] %>
+	wis score: <%= json_to_hash(@character.wisdom)["score"] %> 
+	wis mod: <%= json_to_hash(@character.wisdom)["mod"] %>
 </p>
 <p>
-	cha score: <%= json_to_score(@character.charisma)["score"] %> 
-	cha mod: <%= json_to_score(@character.charisma)["mod"] %>
+	cha score: <%= json_to_hash(@character.charisma)["score"] %> 
+	cha mod: <%= json_to_hash(@character.charisma)["mod"] %>
 </p>
 
+<p> race: <%= @character.race %> </p>
+<p> class: <%= @character.character_class %> </p>
+
+<% keys = ["ranks","skill_name","Total_bonus","related_ability","ability_mod","race_bonus","class_skill_bonus"] %> 
+<% keys.each do |key| %>
+	<p> 
+		<%= key %>:
+		<%= skill_set[1][1][key] %>
+	</p>
+<% end %> 
 
 
 
 
 
-race: <%= @character.race %>
+
+
+
+

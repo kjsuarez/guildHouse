@@ -56,7 +56,7 @@ window.onload = execute_all;
 
 	      x = document.getElementById("character_dexterity");
 	      x.options[num].text = z[num-1];  
-	      x.options[num].value = z[num-1].toString();
+	      x.options[num].value = z[num-1];
 	     
 	      x = document.getElementById("character_constitution");
 	      x.options[num].text = z[num-1]; 
@@ -168,12 +168,16 @@ window.onload = execute_all;
 	
 	//document.getElementById("button").onclick = buffer_function;
 	function execute_all(){
+		document.getElementById("character_strength").selectedIndex = 1;
+		document.getElementById("character_dexterity").selectedIndex = 2;
+		document.getElementById("character_constitution").selectedIndex = 3;
+		document.getElementById("character_wisdom").selectedIndex = 4;
+		document.getElementById("character_intelligence").selectedIndex = 5;
+		document.getElementById("character_charisma").selectedIndex = 6;
 
-		console.log("here");
 		document.getElementById("character_strength").oninput = buffer_str_select;
 		document.getElementById("character_dexterity").oninput = buffer_dex_select;
-		document.getElementById("character_constitution").oninput = buffer_con_select;
-		
+		document.getElementById("character_constitution").oninput = buffer_con_select;		
 		document.getElementById("character_intelligence").oninput = buffer_int_select;
 		document.getElementById("character_wisdom").oninput = buffer_wis_select;
 		document.getElementById("character_charisma").oninput = buffer_cha_select;

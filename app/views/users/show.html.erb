@@ -1,4 +1,13 @@
 <h1> 
 	<p> username: <%= @user.username %> </p>
 	<p> email: <%= @user.email %> </p>
+	<ul class="characters">
 </h1>
+  <h3> your characters: </h3>
+  <% @characters.each do |character| %>
+    <li>
+      <%= link_to character.race, character %> 
+      <%= link_to character.character_class, character %>
+    </li>
+  <% end %>
+	</ul>

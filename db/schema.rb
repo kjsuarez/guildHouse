@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516170652) do
+ActiveRecord::Schema.define(version: 20150517053859) do
 
   create_table "characters", force: :cascade do |t|
     t.string   "strength"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150516170652) do
     t.integer  "hit_points"
     t.text     "level_table"
     t.string   "class_skills"
+    t.text     "skill_set"
   end
 
   add_index "characters", ["game_id"], name: "index_characters_on_game_id"

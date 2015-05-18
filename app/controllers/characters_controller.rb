@@ -1,6 +1,11 @@
 class CharactersController < ApplicationController
+	include CharactersHelper
+	include SkillsetHelper
+	include CharacterClassHelper
+
 	before_action :logged_in_user, only: [:new]
 	before_action :acceptible_values, only: [:create]
+	
 	def new
 		@character = Character.new
 	end
@@ -9,6 +14,10 @@ class CharactersController < ApplicationController
 		@character = Character.new(character_params)
 		@character.user_id = current_user.id
 		set_scores
+		@character.skill_set = to_json(skill_table)
+		@character.skill_set = update_skill_mods(@character)
+		@character.skill_set = set_class_skills(@character)
+
 		if @character.save			
 			redirect_to @character
 		else
@@ -27,7 +36,8 @@ class CharactersController < ApplicationController
 
 	def character_params
 		params.require(:character).permit(:strength, :dexterity,
-		 :constitution, :intelligence, :wisdom, :charisma, :race)
+		 :constitution, :intelligence, :wisdom, :charisma, :race,
+		 :character_class, :hit_points, :level_table, :class_skills, :skill_set)
 	end
 
 	def logged_in_user
@@ -49,25 +59,23 @@ class CharactersController < ApplicationController
 			end
 	end
 
-	def set_score(score,mod)
-		x = {:score => score, :mod => mod}
-	end
 
-	def set_mod()
-		
-	end
 
-	def score_json(hash)
+	def to_json(hash)
 		ActiveSupport::JSON.encode(hash)
 	end
 
 	def set_scores
-		@character.strength = score_json(set_score(@character.strength,score_to_mod(@character.strength.to_i)))
-		@character.dexterity = score_json(set_score(@character.dexterity,score_to_mod(@character.dexterity.to_i)))
-		@character.constitution = score_json(set_score(@character.constitution,score_to_mod(@character.constitution.to_i)))
-		@character.intelligence = score_json(set_score(@character.intelligence,score_to_mod(@character.intelligence.to_i)))
-		@character.wisdom = score_json(set_score(@character.wisdom,score_to_mod(@character.wisdom.to_i)))
-		@character.charisma = score_json(set_score(@character.charisma,score_to_mod(@character.charisma.to_i)))
+		@character.strength = to_json(set_score(@character.strength,score_to_mod(@character.strength.to_i)))
+		@character.dexterity = to_json(set_score(@character.dexterity,score_to_mod(@character.dexterity.to_i)))
+		@character.constitution = to_json(set_score(@character.constitution,score_to_mod(@character.constitution.to_i)))
+		@character.intelligence = to_json(set_score(@character.intelligence,score_to_mod(@character.intelligence.to_i)))
+		@character.wisdom = to_json(set_score(@character.wisdom,score_to_mod(@character.wisdom.to_i)))
+		@character.charisma = to_json(set_score(@character.charisma,score_to_mod(@character.charisma.to_i)))
+	end
+
+	def set_skills
+		@character.skill_set = to_json(skill_table) 
 	end
 
 	def score_to_mod(score)  	# the formula that derives ability
