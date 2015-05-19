@@ -48,6 +48,23 @@ module SkillsetHelper
 		character.skill_set = to_json(Hash[skill_arry])
 	end
 
+	def update_total_skill_points(character)
+		skill_arry = json_to_hash(character.skill_set).to_a
+		(1..skill_arry.length-1).each do |i|
+			
+			ability_mod = skill_arry[i][1]["ability_mod"]
+			class_skill_bonus = (skill_arry[i][1]["class_skill_bonus"]||0)
+			ranks = (skill_arry[i][1]["ranks"]||0)
+			race_bonus = (skill_arry[i][1]["race_bonus"]||0)
+
+			skill_arry[i][1]["Total_bonus"] = ability_mod + class_skill_bonus + ranks + race_bonus		
+		end
+		
+		
+
+		return to_json(Hash[skill_arry])
+	end
+
 	def skill_table
 		
 		skills = {  		:ranks => 0,

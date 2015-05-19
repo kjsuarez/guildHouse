@@ -17,6 +17,7 @@ class CharactersController < ApplicationController
 		@character.skill_set = to_json(skill_table)
 		@character.skill_set = update_skill_mods(@character)
 		@character.skill_set = set_class_skills(@character)
+		@character.skill_set = update_total_skill_points(@character)
 
 		if @character.save			
 			redirect_to @character

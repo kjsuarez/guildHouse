@@ -1,4 +1,5 @@
 <% skill_set = json_to_hash(@character.skill_set).to_a %> 
+<% keys = ["related_ability","ability_mod","race_bonus"] %> 
 
 <h1> Character: </h1>
 <p> 
@@ -29,17 +30,37 @@
 <p> race: <%= @character.race %> </p>
 <p> class: <%= @character.character_class %> </p>
 
-<% keys = ["ranks","skill_name","Total_bonus","related_ability","ability_mod","race_bonus","class_skill_bonus"] %> 
-<% keys.each do |key| %>
-	<p> 
-		<%= key %>:
-		<%= skill_set[1][1][key] %>
-	</p>
-<% end %> 
+<%= skill_set[1][1] %>
+	<p>skill,    total  ability mod  race mod  class skill</p>
+	<%count = 1%>
+
+	<% (1..skill_set.length-1).each do |i| %>
+	  
+		<p> 
+			<%= skill_set[i][1]["skill_name"] %> 
+			
+			<% if skill_set[i][1]["Total_bonus"] == nil%>
+				_ =
+			<% else %>
+				<%= skill_set[i][1]["Total_bonus"] %> =
+			<% end %>
+
+			<% keys.each do |key| %>
+				<% if  skill_set[i][1][key] == nil%>
+					_ +
+				<% else %>
+					<%= skill_set[i][1][key] %> +
+				<% end %>		
+				<%= skill_set[i][1]["class_skill_bonus"] %>		
+			<% end %>
+
+		</p> 
+
+	<% end %>	
 
 
 
-
+		
 
 
 
