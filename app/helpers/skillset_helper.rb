@@ -59,9 +59,6 @@ module SkillsetHelper
 
 			skill_arry[i][1]["Total_bonus"] = ability_mod + class_skill_bonus + ranks + race_bonus		
 		end
-		
-		
-
 		return to_json(Hash[skill_arry])
 	end
 

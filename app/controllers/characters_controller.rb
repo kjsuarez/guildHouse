@@ -18,6 +18,7 @@ class CharactersController < ApplicationController
 		@character.skill_set = update_skill_mods(@character)
 		@character.skill_set = set_class_skills(@character)
 		@character.skill_set = update_total_skill_points(@character)
+		@character.skill_set = set_ranks(@character)
 
 		if @character.save			
 			redirect_to @character
