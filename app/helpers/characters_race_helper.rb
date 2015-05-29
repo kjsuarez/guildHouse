@@ -107,7 +107,7 @@ module CharactersRaceHelper
 		return specs[choice.to_sym]
 	end
 
-	def halfork(choice, buff)
+	def halfork(choice, buff = nil)
 		specs = { :classification => :human||:ork,
 		:racial_bonuses => { :strength => 0, :dexterity => 0,
 					 		:constitution => 0, :intelligence => 0,
@@ -122,7 +122,7 @@ module CharactersRaceHelper
 		return specs[choice.to_sym]		
 	end
 
-	def halfelf(choice, buff)
+	def halfelf(choice, buff = nil)
 		specs = { :classification => :human||:elf,
 		:racial_bonuses => { :strength => 0, :dexterity => 0,
 					 		:constitution => 0, :intelligence => 0,

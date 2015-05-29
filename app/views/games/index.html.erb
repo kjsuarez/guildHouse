@@ -1,0 +1,9 @@
+<ul class="games">
+  <h1> all games </h1>
+  <% @games.each do |game| %>
+    <li>
+      <%= link_to "hi #{game.statement}", game %> 
+      
+    </li>
+  <% end %>
+</ul>

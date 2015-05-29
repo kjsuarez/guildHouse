@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150520233823) do
+ActiveRecord::Schema.define(version: 20150529022914) do
 
   create_table "characters", force: :cascade do |t|
     t.string   "strength"
@@ -38,9 +38,11 @@ ActiveRecord::Schema.define(version: 20150520233823) do
 
   create_table "games", force: :cascade do |t|
     t.text     "body"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "character_id"
+    t.string   "statement"
+    t.integer  "gamemaster_id"
   end
 
   add_index "games", ["character_id"], name: "index_games_on_character_id"

@@ -1,0 +1,13 @@
+<p> body: <%= @game.body %> </p>
+
+<%= form_for @game do |f| %>
+
+<p>
+  <%= f.text_area :statement %>
+</p>
+<p>
+  <%= f.submit %>
+</p>
+
+<% end %>
+
