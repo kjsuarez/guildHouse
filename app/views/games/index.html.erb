@@ -1,9 +1,14 @@
+<% @user = current_user %>
+id: <%= @user.id %>
 <ul class="games">
-  <h1> all games </h1>
+  <h1> choose a game to join </h1>
   <% @games.each do |game| %>
+	<% if game.gamemaster_id != nil %>
+		<% user = User.find(game.gamemaster_id) %>
     <li>
-      <%= link_to "hi #{game.statement}", game %> 
-      
+      <%= link_to "#{user.email}'s game", controller: "games", action: "pick_character", guy: @user.id, game: game.id%>       
     </li>
+	<% end %>
+
   <% end %>
 </ul>

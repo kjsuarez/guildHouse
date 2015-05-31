@@ -39,6 +39,11 @@ class GamesController < ApplicationController
 	def index
 		@games = Game.all
 	end
+
+	def pick_character
+		@game = Game.find(params[:game])
+		@user = User.find(params[:guy])
+	end
 #################
     def game_params
       params.require(:game).permit(:body, :statement)
