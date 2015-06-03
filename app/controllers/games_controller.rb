@@ -43,6 +43,21 @@ class GamesController < ApplicationController
 	def pick_character
 		@game = Game.find(params[:game])
 		@user = User.find(params[:guy])
+		@characters = Character.where(user_id: params[:guy])
+	end
+
+	def add_character_to_game
+		@user = User.find(params[:guy])
+		@character = Character.find(params[:character])
+		@character.update_attribute(:game_id, params[:game])
+		params[:id] = params[:game]
+		redirect_to '/games/1/characters'
+	end
+
+	def game_characters
+		@game = Game.find(params[:id])
+		@characters = @game.characters
+
 	end
 #################
     def game_params

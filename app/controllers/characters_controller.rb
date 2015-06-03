@@ -36,6 +36,7 @@ class CharactersController < ApplicationController
 	def index
 		@characters = Character.where(user_id: current_user.id)
 	end
+	
 ###########################
 
 	def character_params
@@ -47,7 +48,7 @@ class CharactersController < ApplicationController
 
 	def logged_in_user
       unless logged_in?
-        flash[:danger] = "login to create a character"
+        flash[:danger] = "please login to create a character"
         redirect_to login_url
       end 		
 	end
