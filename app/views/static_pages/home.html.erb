@@ -1,5 +1,16 @@
-<h1> welcome to the home page! </h1>
+<h1> welcome to guildHouse! </h1>
 
 <% if logged_in? %>
-	<%= link_to "join a game", "/games" %>
+	<p> <%= link_to "DM a new game", "/games/new" %> </p>
+	<p> <%= link_to "join a game somebody else started", "/games" %> </p>
+<% else %>	
+	<p> why not 
+		<%= link_to "sign up", '/signup' %> 
+		or 
+		<%= link_to "log on", '/login' %>
+		? </p>
 <% end %>
+<p> Or just checkout the 
+	<%= link_to "milestones page", '/milestones' %> 
+	or 
+	bug report </p>	

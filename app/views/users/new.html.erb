@@ -1,7 +1,9 @@
 <h1> sign up </h1>
 
     <%= form_for(@user) do |f| %>
-    
+        <%= f.label :usename %>
+        <%= f.text_field :username, class: 'form-control' %>
+
      	<%= f.label :email %>
     	<%= f.email_field :email, class: 'form-control' %>
     	

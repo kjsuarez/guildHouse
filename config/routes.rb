@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
+  get 'milestones' => 'static_pages#milestones'
   resources :users  
   
   get 'all_users' => 'users#index'

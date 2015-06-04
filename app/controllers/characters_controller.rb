@@ -35,6 +35,9 @@ class CharactersController < ApplicationController
 
 	def index
 		@characters = Character.where(user_id: current_user.id)
+		if @characters[0].nil?
+			redirect_to action: "new"
+		end
 	end
 	
 ###########################

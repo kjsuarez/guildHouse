@@ -3,7 +3,7 @@
 	<%= link_to "profile", user_path(current_user) %>		
 	<%= link_to "build a character!", character_creater_path%>
 	
-	<% unless current_user.characters.nil? %>	
+	<% unless current_user.characters[0].nil? %>	
 		<%= link_to "your characters", "/characters" %>
 	<% end %>
 	

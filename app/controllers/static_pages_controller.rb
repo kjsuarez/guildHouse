@@ -1,11 +1,12 @@
 class StaticPagesController < ApplicationController
 
-def home
-	
+def home	
 end
 
-def games
-	
+def games	
+end
+
+def milestones	
 end
 
 end

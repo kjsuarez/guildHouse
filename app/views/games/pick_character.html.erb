@@ -3,11 +3,11 @@
 
 <% @characters.each do |character| %>
 	<% x = "/add_to_game?character=#{character.id}&amp;game=#{@game.id}&amp;guy=#{@user.id}"%>
-	 <a data-method="put" href= <%= x %>
-	 > <%= "#{character.race} #{character.character_class}"%></a>
+	 
 
 	 <li>
-      <%= link_to "#{character.race} #{character.character_class}", controller: "games",method: :delete, action: "add_character_to_game", guy: @user.id, game: @game.id, character: character.id  %>       
+      <a data-method="put" href= <%= x %> > 
+      	<%= "#{character.race} #{character.character_class}"%></a>       
     </li>
 <% end %>
 <%=%>
