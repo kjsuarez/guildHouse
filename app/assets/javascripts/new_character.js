@@ -134,12 +134,19 @@ window.onload = execute_all;
 		   count = count+1; 
 		}
 	}
+
+	function disabled_str(){
+		var str = document.getElementById("strength");
+		var count = 0;
+		str.options[2].disabled = true;
+		console.log("it got thiiiiis far");	
+	}
 	 
 // the buffer functions only serve to house functions that need to be called 	from the DOM and also take input. For some reason I can't get this to work without a buffer function.
 	function buffer_function(){  
 	    var z = ability_scores();
-	    test_loop(z);
-	    execute_all();
+	    test_loop(z);	    
+	    execute_all();	    
 	}
 
 	function buffer_str_select(){
@@ -168,12 +175,9 @@ window.onload = execute_all;
 	
 	//document.getElementById("button").onclick = buffer_function;
 	function execute_all(){
-		document.getElementById("character_strength").selectedIndex = 1;
-		document.getElementById("character_dexterity").selectedIndex = 2;
-		document.getElementById("character_constitution").selectedIndex = 3;
-		document.getElementById("character_wisdom").selectedIndex = 4;
-		document.getElementById("character_intelligence").selectedIndex = 5;
-		document.getElementById("character_charisma").selectedIndex = 6;
+		//document.getElementById("character_strength").options[2].disabled = true;
+
+		
 
 		document.getElementById("character_strength").oninput = buffer_str_select;
 		document.getElementById("character_dexterity").oninput = buffer_dex_select;
@@ -181,6 +185,7 @@ window.onload = execute_all;
 		document.getElementById("character_intelligence").oninput = buffer_int_select;
 		document.getElementById("character_wisdom").oninput = buffer_wis_select;
 		document.getElementById("character_charisma").oninput = buffer_cha_select;
+
 	}
 	
 
