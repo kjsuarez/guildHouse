@@ -3,11 +3,20 @@ id: <%= @user.id %>
 <ul class="games">
   <h1> choose a game to join </h1>
   <% @games.each do |game| %>
-	<% if game.gamemaster_id != nil %>
+	<% if game.gamemaster_id != nil && game.gamemaster_id != current_user.id %>
 		<% user = User.find(game.gamemaster_id) %>
-    <li>
-      <%= link_to "#{user.email}'s game", controller: "games", action: "pick_character", guy: @user.id, game: game.id%>       
-    </li>
+    	<% my_character = current_user.characters.where(game_id: game.id) %>
+
+		<% if  my_character[0].nil? %>
+			<li>
+	     	 <%= link_to "#{user.email}'s game", controller: "games",
+	     	  action: "pick_character", guy: @user.id, game: game.id%>       
+	    	</li>
+		<% else %>
+			<% guy = my_character[0] %>
+			<%= "you already joined #{user.email}'s
+			 game with #{guy.race} #{guy.character_class}" %>
+		<% end %>	    
 	<% end %>
 
   <% end %>

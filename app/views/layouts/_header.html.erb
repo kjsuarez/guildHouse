@@ -1,7 +1,7 @@
 <%= link_to "home",root_path, class: "btn btn-lg btn-primary" %>
 <% if logged_in? # method deffined in sessions_helper %>
 	<%= link_to "profile", user_path(current_user) %>		
-	<%= link_to "build a character!", character_creater_path%>
+	<%= link_to "build a character!", character_creator_path%>
 	
 	<% unless current_user.characters[0].nil? %>	
 		<%= link_to "your characters", "/characters" %>

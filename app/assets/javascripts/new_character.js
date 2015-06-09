@@ -114,7 +114,7 @@ window.onload = execute_all;
 		 	currentElement.options[last_cha_index].disabled = false}; 	
 			 	count +=1;
 		};
-		 	count = 0		 			 
+		 	count = 0;		 			 
 		y = document.getElementById(q).selectedIndex; // index of selected option
 		 
 		if (q == "character_strength") {last_str_index = y};
@@ -176,8 +176,6 @@ window.onload = execute_all;
 	//document.getElementById("button").onclick = buffer_function;
 	function execute_all(){
 		//document.getElementById("character_strength").options[2].disabled = true;
-
-		
 
 		document.getElementById("character_strength").oninput = buffer_str_select;
 		document.getElementById("character_dexterity").oninput = buffer_dex_select;

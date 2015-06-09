@@ -63,8 +63,8 @@ class CharactersController < ApplicationController
 			@character.constitution.to_i ==0|| @character.intelligence.to_i ==0||
 			@character.wisdom.to_i ==0|| @character.charisma.to_i ==0	
 			
-			flash[:danger] = "login to create a character"
-        	redirect_to character_creater_url 	
+			flash[:danger] = "every attribute must have a value and values can't be repeated"
+        	redirect_to character_creator_url 	
 		end
 	end
 

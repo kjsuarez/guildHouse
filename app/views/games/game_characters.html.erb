@@ -1,4 +1,4 @@
 <h1> I LIIIIVE!!!</h1>
 <% @characters.each do |character| %>
-	<p> <%=character.race%> <%=character.character_class%> </p>
+	<%= link_to "#{character.race} #{character.character_class}", character %>
 <% end %>

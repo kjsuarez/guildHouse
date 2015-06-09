@@ -8,6 +8,7 @@ class GamesController < ApplicationController
 
 	def create
 		@game = Game.new(params[:game])
+		@game.gamemaster_id = current_user.id
 		@game.body = "game initiated"
 		@game.save
 		redirect_to @game
@@ -51,13 +52,25 @@ class GamesController < ApplicationController
 		@character = Character.find(params[:character])
 		@character.update_attribute(:game_id, params[:game])
 		params[:id] = params[:game]
-		redirect_to '/games/1/characters'
+		redirect_to "/games/#{params[:game]}/characters"
 	end
 
 	def game_characters
 		@game = Game.find(params[:id])
 		@characters = @game.characters
 
+	end
+
+	def games_you_play
+		ids=[]; @guys = current_user.characters
+		@guys.find_each do |guy|
+			ids << guy.game_id
+		end	
+		@games = Game.where(id: ids)
+	end
+
+	def games_you_run
+		
 	end
 #################
     def game_params
@@ -68,17 +81,13 @@ class GamesController < ApplicationController
     	puts "hey hey #{params[:id]}"
     	@game_id = params[:id]
     	@user_id = current_user.id
-    	@characters = Character.where(user_id: @user_id)
-    	pass = 0; count = 0;
-    	while count < @characters.length
-    		if @characters[0].game_id == @game_id.to_i
-    			puts "WE DID IT"; count +=1
-    		end
-    	end    
-    	unless count > 0
+    	@characters = Character.where(user_id: @user_id).where(game_id: params[:id])
+    
+    	
+    	if @characters[0] == nil
     			flash[:danger] = "you can only edit games you belong to"
     			redirect_to root_url
-    		end	
+    	end	
     end
     def my_character
     	@game = Game.find(params[:id])

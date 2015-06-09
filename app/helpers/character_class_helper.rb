@@ -47,7 +47,7 @@ module CharacterClassHelper
 				  :knowledge_religion, :linguistics, :profession1, :spellcraft]
 			ranks = 2	  
 
-		elsif job == "Bararian"
+		elsif job == "Barbarian"
 			class_skills = [:acrobatics,:climb,:craft1,:handle_animal,:intimidate,
 						:knowledge_nature,:perception,:ride,:survival,:swim]
 			ranks = 4	
