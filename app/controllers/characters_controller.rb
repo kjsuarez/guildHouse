@@ -21,6 +21,7 @@ class CharactersController < ApplicationController
 		@character.skill_set = set_class_skills(@character)
 		@character.skill_set = update_total_skill_points(@character)
 		@character.skill_set = set_ranks(@character)
+		@character.hit_points = 
 
 		if @character.save			
 			redirect_to @character
@@ -38,6 +39,17 @@ class CharactersController < ApplicationController
 		if @characters[0].nil?
 			redirect_to action: "new"
 		end
+	end
+
+	def character_action
+	@game = Game.find(params[:game])
+	@user = User.find(params[:guy])
+	@character = Character.find(params[:character])
+
+	@game.body = @game.body << " #{@character.strength}"
+	@game.save
+	redirect_to :controller => 'games', :action => 'edit', :id => params[:game]
+
 	end
 	
 ###########################

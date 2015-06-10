@@ -11,3 +11,7 @@
 
 <% end %>
 
+<% x = "/action?character=#{@character.id}&amp;game=#{@game.id}&amp;guy=#{@user.id}"%>
+<a data-method="put" href= <%= x %> > 
+	<%= "act"%>
+</a>  

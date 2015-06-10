@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :characters
   get 'character_creator' => 'characters#new'
+  put 'action' => 'characters#character_action'
 
   resources :games
   get 'play/:id' => 'games#play'
