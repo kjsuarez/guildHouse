@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150529022914) do
+ActiveRecord::Schema.define(version: 20150611023930) do
 
   create_table "characters", force: :cascade do |t|
     t.string   "strength"
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(version: 20150529022914) do
   end
 
   add_index "games", ["character_id"], name: "index_games_on_character_id"
+
+  create_table "statements", force: :cascade do |t|
+    t.string   "content"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "character_id"
+    t.integer  "game_id"
+  end
+
+  add_index "statements", ["character_id"], name: "index_statements_on_character_id"
+  add_index "statements", ["game_id"], name: "index_statements_on_game_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email"

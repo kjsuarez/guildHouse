@@ -1,17 +1,10 @@
-<p> body: <%= @game.body %> </p>
 
-<%= form_for @game do |f| %>
-
-<p>
-  <%= f.text_area :statement %>
-</p>
-<p>
-  <%= f.submit %>
-</p>
-
+<% @statements.each do |statement| %>
+	<p> <%= statement.content %> </p>
 <% end %>
 
-<%= form_for @statement do |f| %>
+
+<%= form_for([@game, @statement]) do |f| %>
 	
 <p>
   <%= f.text_area :content %>

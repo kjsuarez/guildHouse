@@ -1,0 +1,14 @@
+<p> I'm totally gonna be a thing soon </p>
+<p> <%=@game.body%> </p>
+<p> <%=@character.race%> <%=@character.character_class%> </p>
+
+<%= form_for @statement, url: super_posts_path do |f| %>
+	
+<p>
+  <%= f.text_area :content %>
+</p>
+<p>
+  <%= f.submit %>
+</p>
+
+<% end %>

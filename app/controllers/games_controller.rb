@@ -23,18 +23,23 @@ class GamesController < ApplicationController
 		@user = User.find(current_user.id)
 		@character = @user.characters.where(game_id: params[:id])[0]
 		@game = Game.find(params[:id])
+		@statement = @character.statements.new(game_id: params[:id])
 
 	end
 	
-	def update
+	def update		
+		@break = "<p>#{params["game"]["statement"]} <p>"
+		@user = User.find(current_user)
+		@character = @user.characters.where(game_id: params[:id])[0]
 		x = json_to_hash(my_character.strength)
 		@game = Game.find(params[:id])
+		@statement = @character.statements.new(game_id: params[:id])
 		puts "hey #{params["game"]["statement"]}"
 		if params["game"]["statement"] == "strength"
 			#puts "here it is #{json_to_hash(my_character.strength)["mod"]}"
 			@game.body = @game.body << "strength_mod: #{x}"
 		else
-			@game.body = @game.body << params["game"]["statement"]
+			@game.body = @game.body << "#{@break}"
 		end		
 		@game.statement = nil
 		@game.update_attributes(game_params)

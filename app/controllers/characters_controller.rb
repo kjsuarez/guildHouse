@@ -101,8 +101,6 @@ class CharactersController < ApplicationController
 	def set_race_ability_scores
 		val = add_racial_bonuses(@character)
 
-		puts "HEYHEYHEY #{val}"
-
 		@character.strength = to_json(set_score(val[0]["score"],score_to_mod(val[0]["score"].to_i)))
 		@character.dexterity = to_json(set_score(val[1]["score"],score_to_mod(val[1]["score"].to_i)))
 		@character.constitution = to_json(set_score(val[2]["score"],score_to_mod(val[2]["score"].to_i)))

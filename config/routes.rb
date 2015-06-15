@@ -14,13 +14,16 @@ Rails.application.routes.draw do
   get 'character_creator' => 'characters#new'
   put 'action' => 'characters#character_action'
 
-  resources :games
+  resources :games do
+    resources :statements
+  end
+
   get 'play/:id' => 'games#play'
   get 'game_stuff' => 'static_pages#games'
   get 'choose_character' => 'games#pick_character'
   put 'add_to_game' => 'games#add_character_to_game'
   get 'games/:id/characters' => 'games#game_characters'
-  get 'your_games' => 'games#games_you_play'
+  get 'your_games' => 'games#games_you_play' 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
