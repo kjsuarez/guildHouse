@@ -1,12 +1,24 @@
+<% unless current_user.nil? %>
+	<% ids=[]; @guys = current_user.characters %>
+	<% @guys.find_each do |guy| %>
+		<% ids << guy.game_id %>
+	<% end %>
+	<% @games = Game.where(id: ids) %>
+	<% @your_games = Game.where(gamemaster_id: current_user.id)%>
+<% end %>
+
+
+
+
 <%= link_to "home",root_path, class: "btn btn-lg btn-primary" %>
 <% if logged_in? # method deffined in sessions_helper %>
 	<%= link_to "profile", user_path(current_user) %>		
-	<%= link_to "build a character!", character_creator_path%>
+	<%= link_to "characters", "/characters" %>
 	
-	<% unless current_user.characters[0].nil? %>	
-		<%= link_to "your characters", "/characters" %>
+	<% unless @games[0].nil? && @your_games[0].nil? %>
+		<%= link_to "games", your_games_path %>
 	<% end %>
-	
+		
 	<%= link_to "Log out", logout_path, method: "delete" %> 
 <% else %>
 	<%= link_to "sign up",signup_path, class: "btn btn-lg btn-primary" %>

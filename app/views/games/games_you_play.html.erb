@@ -1,5 +1,15 @@
-<% @games.each do |game| %>
+<h3> games you're playing </h3>
+<% @games_you_play.each do |game| %>
+	<% @owner = User.find(game.gamemaster_id) %>
 	<ul>
-		<%= game.body %>
+		<%= link_to "#{ @owner.email}'s game", new_game_statement_path(game) %>
+	</ul>
+<% end %>
+
+<h3> games you run </h3>
+<% @your_games.each do |game| %>
+	<% @owner = User.find(game.gamemaster_id) %>
+	<ul>
+		<%= link_to "#{ @owner.email}'s game", new_game_statement_path(game) %>
 	</ul>
 <% end %>

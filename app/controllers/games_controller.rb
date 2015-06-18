@@ -75,11 +75,12 @@ class GamesController < ApplicationController
 		@guys.find_each do |guy|
 			ids << guy.game_id
 		end	
-		@games = Game.where(id: ids)
+		@games_you_play = Game.where(id: ids)
+		@your_games = Game.where(gamemaster_id: current_user.id)
 	end
 
 	def games_you_run
-		
+		@your_games = Game.where(gamemaster_id: current_user.id)
 	end
 #################
     def game_params

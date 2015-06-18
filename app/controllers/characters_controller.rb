@@ -48,7 +48,7 @@ class CharactersController < ApplicationController
 
 	@game.body = @game.body << " #{@character.strength}"
 	@game.save
-	redirect_to :controller => 'games', :action => 'edit', :id => params[:game]
+	redirect_to "/games/#{ params[:game] }/statements/new"
 
 	end
 	
