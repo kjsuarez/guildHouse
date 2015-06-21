@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150611023930) do
+ActiveRecord::Schema.define(version: 20150621004111) do
 
   create_table "characters", force: :cascade do |t|
     t.string   "strength"
@@ -31,8 +31,10 @@ ActiveRecord::Schema.define(version: 20150611023930) do
     t.string   "class_skills"
     t.text     "skill_set"
     t.string   "race_bonus_choice"
+    t.integer  "dice"
   end
 
+  add_index "characters", ["dice"], name: "index_characters_on_dice"
   add_index "characters", ["game_id"], name: "index_characters_on_game_id"
   add_index "characters", ["user_id"], name: "index_characters_on_user_id"
 
@@ -43,9 +45,11 @@ ActiveRecord::Schema.define(version: 20150611023930) do
     t.integer  "character_id"
     t.string   "statement"
     t.integer  "gamemaster_id"
+    t.integer  "turn"
   end
 
   add_index "games", ["character_id"], name: "index_games_on_character_id"
+  add_index "games", ["turn"], name: "index_games_on_turn"
 
   create_table "statements", force: :cascade do |t|
     t.string   "content"

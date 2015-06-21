@@ -1,5 +1,34 @@
 module CharacterClassHelper
 	
+	def hitdice(character)
+		job = character.character_class
+		hitdice = nil
+		if job == "Bard"
+			hitdice = 8
+		elsif job == "Druid"
+			hitdice = 8
+		elsif job == "Barbarian"
+			hitdice = 12
+		elsif job == "Cleric"
+			hitdice = 8
+		elsif job == "Fighter"
+			hitdice = 10
+		elsif job == "Monk"
+			hitdice = 8
+		elsif job == "Paladin"
+			hitdice = 10
+		elsif job == "Ranger"
+			hitdice = 10
+		elsif job == "Rogue"
+			hitdice = 8	
+		elsif job == "Sorcerer"
+			hitdice = 6
+		elsif job == "Wizard"
+			hitdice = 6										
+		end
+		return hitdice
+	end
+
 	def set_class_skills(character)
 		job_skills = class_skills_ranks(character)[0]   # [:appraise, :craft1, :fly]
 		skill_hash = json_to_hash(character.skill_set)		# {:acrobatics => { :skill_name => "Acrobatics", :Total_bonus => nil}}

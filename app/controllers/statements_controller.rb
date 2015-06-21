@@ -4,6 +4,7 @@ class StatementsController < ApplicationController
 	def new
 		@user = current_user
 		@game = Game.find(params[:game_id])
+		@all_characters = Character.where(game_id: params[:game_id])
 		@character = @user.characters.where(game_id: params[:game_id])[0]
 		@statement = @character.statements.new(game_id: params[:game_id])
 		@statements = Statement.where(game_id: params[:game_id])

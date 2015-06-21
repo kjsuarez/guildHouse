@@ -1,23 +1,32 @@
+<h3> characters playing this game </h3>
+<% @all_characters.each do |character| %>
+	<p> <%= "#{character.race} #{character.character_class}" %> </p>
+	<% end %>
 
-<% @statements.each do |statement| %>
+<div class = "game_body">
+	<% @statements.each do |statement| %>
 	<p> <%= statement.content %> </p>
-<% end %>
+	<% end %>
+
+</div>
+	<%= form_for([@game, @statement]) do |f| %>
+
+	<p>
+	<%= f.text_area :content %>
+	</p>
+	<p>
+	<%= f.submit %>
+	</p>
+
+	<% end %>
 
 
-<%= form_for([@game, @statement]) do |f| %>
-	
-<p>
-  <%= f.text_area :content %>
-</p>
-<p>
-  <%= f.submit %>
-</p>
-
-<% end %>
- 
 
 
-<% x = "/action?character=#{@character.id}&amp;game=#{@game.id}&amp;guy=#{@user.id}"%>
+<% x = "/action?character=#{@character.id}&amp;game=#{@game.id}&amp;guy=#{@user.id}&amp;thing=hp"%>
+
 <a data-method="put" href= <%= x %> > 
-	<%= "act"%>
-</a>  
+	<button> act </button>
+</a>
+
+  

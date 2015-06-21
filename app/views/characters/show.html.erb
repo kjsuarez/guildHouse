@@ -2,6 +2,11 @@
 <% keys = ["related_ability","ability_mod","race_bonus"] %> 
 
 <h1> Character: </h1>
+
+<p>
+	hitpoints: <%= @character.hit_points %>
+</p>
+
 <p> 
 	str score: <%= json_to_hash(@character.strength)["score"] %> 
 	str mod: <%= json_to_hash(@character.strength)["mod"] %>

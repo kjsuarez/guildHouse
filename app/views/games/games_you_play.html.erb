@@ -1,3 +1,6 @@
+<p> <%= link_to "DM a new game", "/games/new" %> </p>
+<p> <%= link_to "join a game somebody else started", "/games" %> </p>
+
 <h3> games you're playing </h3>
 <% @games_you_play.each do |game| %>
 	<% @owner = User.find(game.gamemaster_id) %>

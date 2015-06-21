@@ -6,7 +6,7 @@
 </h1>
  
 <% if @characters[0].nil? %>
-  <%= link_to "hey buddy, how about you make a character?", "/character_creater" %>
+  <%= link_to "hey buddy, how about you make a character?", new_character_path %>
 <% else %>   
   <h3> your characters: </h3>
   <% @characters.each do |character| %>

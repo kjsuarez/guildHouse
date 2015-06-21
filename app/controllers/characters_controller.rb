@@ -21,7 +21,7 @@ class CharactersController < ApplicationController
 		@character.skill_set = set_class_skills(@character)
 		@character.skill_set = update_total_skill_points(@character)
 		@character.skill_set = set_ranks(@character)
-		@character.hit_points = 
+		@character.hit_points = hitdice(@character) + json_to_hash(@character.constitution)["mod"]
 
 		if @character.save			
 			redirect_to @character
@@ -42,14 +42,33 @@ class CharactersController < ApplicationController
 	end
 
 	def character_action
-	@game = Game.find(params[:game])
-	@user = User.find(params[:guy])
-	@character = Character.find(params[:character])
+		@game = Game.find(params[:game])
+		@user = User.find(params[:guy])
+		@character = Character.find(params[:character])
+		@everyone = Character.where(game_id: params[:game]).order(dice: :asc)
+		
+		if @everyone[@game.turn] == @character
+			puts "its this #{ params[:thing] }"
+			if params[:thing] == "floop"			
+				@character.race = "Human"
+				@character.save
+				@statement = @character.statements.new(content: "your race is now: #{@character.race}", game_id: @game.id)
+				@statement.save
+			elsif params[:thing] == "hp"
+				@statement = @character.statements.new(content: "your hp is now: #{@character.hit_points}", game_id: @game.id)
+				@statement.save
+			else
+				@statement = @character.statements.new(content: "#{@character.strength}", game_id: @game.id)
+				@statement.save	
+			end
+			redirect_to "/games/#{ params[:game] }/statements/new"
+		else
+			puts "this sucks"
+			flash[:error] = "not your turn"
+			redirect_to "/games/#{ params[:game] }/statements/new"	
+		end
 
-	@game.body = @game.body << " #{@character.strength}"
-	@game.save
-	redirect_to "/games/#{ params[:game] }/statements/new"
-
+		
 	end
 	
 ###########################
