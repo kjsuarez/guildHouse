@@ -15,9 +15,8 @@
 	<%= link_to "profile", user_path(current_user) %>		
 	<%= link_to "characters", "/characters" %>
 	
-	<% unless @games[0].nil? && @your_games[0].nil? %>
-		<%= link_to "games", your_games_path %>
-	<% end %>
+	<%= link_to "games", your_games_path %>
+	
 		
 	<%= link_to "Log out", logout_path, method: "delete" %> 
 <% else %>

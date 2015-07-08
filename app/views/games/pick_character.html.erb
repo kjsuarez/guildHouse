@@ -1,6 +1,8 @@
 
 <p> <%= @user.email %> plays <%= @game %> with:  </p>
 
+<%= link_to "make a new character for this game", character_creator_path %>
+
 <% @characters.each do |character| %>
 	<% x = "/add_to_game?character=#{character.id}&amp;game=#{@game.id}&amp;guy=#{@user.id}"%>
 	 
@@ -11,4 +13,3 @@
       </a>       
     </li>
 <% end %>
-<%=%>

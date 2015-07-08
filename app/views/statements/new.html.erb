@@ -21,12 +21,15 @@
 	<% end %>
 
 
+<% unless @character.nil? %>
+	
+	<% x = "/action?character=#{@character.id}&amp;game=#{@game.id}&amp;guy=#{@user.id}&amp;thing=hp"%>	
+		
+	<a data-method="put" href= <%= x %> > 
+		<button> act </button>
+	</a>
+<% end %>
 
 
-<% x = "/action?character=#{@character.id}&amp;game=#{@game.id}&amp;guy=#{@user.id}&amp;thing=hp"%>
-
-<a data-method="put" href= <%= x %> > 
-	<button> act </button>
-</a>
 
   

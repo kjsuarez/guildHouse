@@ -22,7 +22,7 @@ module CharactersRaceHelper
 			constitution["score"] += elf(:racial_bonuses)[:constitution]
 			intelligence["score"] += elf(:racial_bonuses)[:intelligence]
 			
-		elsif race == "Halfelf"
+		elsif race == "Half-Elf"
 			strength["score"] += halfelf(:racial_bonuses)[:strength]
 			dexterity["score"] += halfelf(:racial_bonuses)[:dexterity]
 			constitution["score"] += halfelf(:racial_bonuses)[:constitution]
@@ -48,7 +48,7 @@ module CharactersRaceHelper
 			constitution["score"] += gnome(:racial_bonuses)[:constitution]			
 			charisma["score"] += gnome(:racial_bonuses)[:charisma]	
 
-		elsif race == "halfork"	
+		elsif race == "Half-Orc"	
 			strength["score"] += halfork(:racial_bonuses)[:strength]
 			dexterity["score"] += halfork(:racial_bonuses)[:dexterity]
 			constitution["score"] += halfork(:racial_bonuses)[:constitution]

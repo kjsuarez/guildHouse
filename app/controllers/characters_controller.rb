@@ -63,7 +63,6 @@ class CharactersController < ApplicationController
 			end
 			redirect_to "/games/#{ params[:game] }/statements/new"
 		else
-			puts "this sucks"
 			flash[:error] = "not your turn"
 			redirect_to "/games/#{ params[:game] }/statements/new"	
 		end

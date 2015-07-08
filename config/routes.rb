@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
   get 'milestones' => 'static_pages#milestones'
-  resources :users  
+  resources :users do
+    resources :statements
+  end 
   
   get 'all_users' => 'users#index'
   get 'signup' => 'users#new'
@@ -79,4 +81,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  #  
 end
