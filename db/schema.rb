@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706012429) do
+ActiveRecord::Schema.define(version: 20150708013239) do
+
+  create_table "action_ownerships", force: :cascade do |t|
+    t.integer  "monster_id"
+    t.integer  "character_id"
+    t.integer  "combat_action_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "characters", force: :cascade do |t|
     t.string   "strength"
@@ -37,6 +45,16 @@ ActiveRecord::Schema.define(version: 20150706012429) do
   add_index "characters", ["dice"], name: "index_characters_on_dice"
   add_index "characters", ["game_id"], name: "index_characters_on_game_id"
   add_index "characters", ["user_id"], name: "index_characters_on_user_id"
+
+  create_table "combat_actions", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "damage"
+    t.string   "effects"
+    t.string   "buffs"
+    t.string   "immunities"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "games", force: :cascade do |t|
     t.text     "body"

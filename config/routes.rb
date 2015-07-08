@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'milestones' => 'static_pages#milestones'
   resources :users do
     resources :statements
+    resources :monsters
   end 
   
   get 'all_users' => 'users#index'
