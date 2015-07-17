@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  cash_value: 1
+  weapon_type: MyString
+  weapon_use: MyString
+  hands: MyString
+  size: MyString
+  damage_type: MyString
+  masterwork: false
+
+two:
+  name: MyString
+  description: MyString
+  cash_value: 1
+  weapon_type: MyString
+  weapon_use: MyString
+  hands: MyString
+  size: MyString
+  damage_type: MyString
+  masterwork: false

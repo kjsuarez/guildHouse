@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150708013239) do
+ActiveRecord::Schema.define(version: 20150717214456) do
 
   create_table "action_ownerships", force: :cascade do |t|
     t.integer  "monster_id"
@@ -19,6 +19,20 @@ ActiveRecord::Schema.define(version: 20150708013239) do
     t.integer  "combat_action_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+  end
+
+  create_table "armors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "cash_value"
+    t.boolean  "shield"
+    t.integer  "armor_bonus"
+    t.integer  "max_dex_bonus"
+    t.integer  "armor_penalty"
+    t.integer  "spell_failure"
+    t.boolean  "masterwork"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "characters", force: :cascade do |t|
@@ -40,6 +54,7 @@ ActiveRecord::Schema.define(version: 20150708013239) do
     t.text     "skill_set"
     t.string   "race_bonus_choice"
     t.integer  "dice"
+    t.string   "equipment"
   end
 
   add_index "characters", ["dice"], name: "index_characters_on_dice"
@@ -56,6 +71,22 @@ ActiveRecord::Schema.define(version: 20150708013239) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "encounter_ownerships", force: :cascade do |t|
+    t.integer  "encounter_id"
+    t.integer  "monster_id"
+    t.integer  "character_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "encounters", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "game_id"
+  end
+
+  add_index "encounters", ["game_id"], name: "index_encounters_on_game_id"
+
   create_table "games", force: :cascade do |t|
     t.text     "body"
     t.datetime "created_at",    null: false
@@ -68,6 +99,17 @@ ActiveRecord::Schema.define(version: 20150708013239) do
 
   add_index "games", ["character_id"], name: "index_games_on_character_id"
   add_index "games", ["turn"], name: "index_games_on_turn"
+
+  create_table "item_ownerships", force: :cascade do |t|
+    t.integer  "armor_id"
+    t.integer  "weapon_id"
+    t.integer  "user_id"
+    t.integer  "character_id"
+    t.integer  "game_id"
+    t.integer  "combat_action_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "monster_ownerships", force: :cascade do |t|
     t.integer  "monster_id"
@@ -98,6 +140,7 @@ ActiveRecord::Schema.define(version: 20150708013239) do
     t.datetime "updated_at",   null: false
     t.string   "name"
     t.string   "flavor_text"
+    t.integer  "dice"
   end
 
   create_table "statements", force: :cascade do |t|
@@ -119,6 +162,20 @@ ActiveRecord::Schema.define(version: 20150708013239) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "username"
+  end
+
+  create_table "weapons", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "cash_value"
+    t.string   "weapon_type"
+    t.string   "weapon_use"
+    t.string   "hands"
+    t.string   "size"
+    t.string   "damage_type"
+    t.boolean  "masterwork"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end

@@ -5,4 +5,8 @@ class Monster < ActiveRecord::Base
 
 	has_many :action_ownerships
 	has_many :combat_actions, :through => :action_ownerships
+
+	has_many :encounter_ownerships
+	has_many :encounters, :through => :encounter_ownerships
+	has_many :characters, :through => :encounter_ownerships	
 end
