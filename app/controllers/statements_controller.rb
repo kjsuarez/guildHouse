@@ -5,10 +5,22 @@ class StatementsController < ApplicationController
 		@user = current_user
 		@game = Game.find(params[:game_id])
 		@all_characters = Character.where(game_id: params[:game_id])
-		if @user.id == @game.gamemaster_id			
+		@players = ([]<<@game.characters<<@game.monsters).flatten!
+
+		if @user.id == @game.gamemaster_id
+			@monsters = @game.monsters
+		
+			@all_actions = []
+			@monsters.each do |monster|
+				@actions = monster.combat_actions
+				@all_actions << @actions
+			end	
+			@all_actions.flatten!
+				
 			@statement = @user.statements.new(game_id: params[:game_id])
 		else
 			@character = @user.characters.where(game_id: params[:game_id])[0]
+			@character_actions = @character.combat_actions
 			@statement = @character.statements.new(game_id: params[:game_id])
 		end
 		@statements = Statement.where(game_id: params[:game_id])
@@ -41,6 +53,22 @@ class StatementsController < ApplicationController
 
 	end
 
+	def do_action
+		count=0
+		@targets =[]
+  		@game = Game.find(params[:game_id])
+  		@players = ([]<<@game.characters<<@game.monsters).flatten!
+  		while count < @players.length
+  			puts "BANG #{params["player"+count.to_s]}"
+  			if params["player"+count.to_s] == '1' 
+
+  				@targets << @players[count]
+  			end
+  			count+=1
+  		end
+  		puts "heres the phone! #{@targets}, also:#{@players.length}"
+  		redirect_to "/games/#{ params[:game_id] }/statements/new"
+	end
 
 
 	def statement_params # selected attributes of user object passed as a hash

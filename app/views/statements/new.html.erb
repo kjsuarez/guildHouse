@@ -1,4 +1,4 @@
-<h3> characters playing this game </h3>
+<h3> characters playing this game: </h3>
 <% @all_characters.each do |character| %>
 	<p> <%= "#{character.race} #{character.character_class}" %> </p>
 	<% end %>
@@ -21,13 +21,46 @@
 	<% end %>
 
 
-<% unless @character.nil? %>
+<% if @character.nil? %>
+
+	<p>available actions:</p>
+	<% x = "#"%>	
 	
+	<% @monsters.each do |monster| %> 
+		<p> <%= monster.name %>'s actions: </p>
+		<% @monster_actions = monster.combat_actions %>
+		
+		<% @monster_actions.each do |action| %>
+			<a data-method="put" href= <%= x %> > 
+				<button> <%= action.name  %> </button>
+			</a>
+			<%count = 0%>
+			<% @players.each do |player| %>
+				<%= form_tag '/statements/do_action' do %>
+				    <%= check_box_tag("player"+count.to_s) %>
+					<%= label_tag("pet_"+count.to_s, player.name) %>
+				   	<%= hidden_field_tag(:game_id, @game.id) %>
+				   	<%= hidden_field_tag(:action_id, action.id) %>
+				    <% count +=1 %>
+				    <div><%= submit_tag 'commit act' %></div>
+				<% end -%>	
+			<% end %>	
+			
+		<% end %>		
+	<% end %>
+			
+<% elsif !@character.nil? %>	
+	<p>available actions:</p>
 	<% x = "/action?character=#{@character.id}&amp;game=#{@game.id}&amp;guy=#{@user.id}&amp;thing=hp"%>	
 		
-	<a data-method="put" href= <%= x %> > 
-		<button> act </button>
-	</a>
+	<% @character_actions.each do |action| %>
+		
+		<a data-method="put" href= <%= x %> > 
+			<button> <%= action.name  %> </button>
+		</a>
+
+	<% end %>
+
 <% end %>
 
 

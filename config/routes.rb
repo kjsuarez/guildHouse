@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   get 'games/:id/characters' => 'games#game_characters'
   get 'your_games' => 'games#games_you_play' 
 
+  post 'statements/do_action' => 'statements#do_action'
+  #resources :statements, :collection=>{:new => :get, :do_action => :post}
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
