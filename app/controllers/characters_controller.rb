@@ -76,7 +76,7 @@ class CharactersController < ApplicationController
 		params.require(:character).permit(:strength, :dexterity,
 		 :constitution, :intelligence, :wisdom, :charisma, :race,
 		 :character_class, :hit_points, :level_table, :class_skills,
-		  :skill_set)
+		  :skill_set, :name)
 	end
 
 	def logged_in_user

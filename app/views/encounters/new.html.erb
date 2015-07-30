@@ -1,0 +1,20 @@
+
+<%= form_for([@game, @encounter]) do |f| %>
+	<%= f.label "name this encounter for future reference" %>
+	<%= f.text_field :name %>
+	<h3> Characters participating in this encounter: </h3>
+	<% @characters.each do |guy| %>
+		<div>
+			<%= check_box_tag("guy"+guy.id.to_s) %>
+			<%= label_tag( "#{guy.name}",guy.name) %>
+		</div>
+	<% end %>
+	<h3> Monsters participating in this encounter: </h3>
+	<% @monsters.each do |monster| %>		
+	    <div>
+			<%= number_field("mon"+monster.id.to_s, :number, in: 1.0..20.0) %>
+			<%= label_tag( "#{monster.name}",monster.name) %>
+	    </div>		    
+	<% end %>
+	<div><%= submit_tag 'create encounter' %></div>	
+<% end -%>

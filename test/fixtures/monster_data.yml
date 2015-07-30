@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  current_hp: 1
+  bleeding: false
+  status: MyString
+  grappled: false
+
+two:
+  current_hp: 1
+  bleeding: false
+  status: MyString
+  grappled: false

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   resources :games do
     resources :statements
+    resources :encounters 
   end
 
   get 'play/:id' => 'games#play'

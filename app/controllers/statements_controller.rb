@@ -4,12 +4,14 @@ class StatementsController < ApplicationController
 	def new
 		@user = current_user
 		@game = Game.find(params[:game_id])
-		@all_characters = Character.where(game_id: params[:game_id])
-		@players = ([]<<@game.characters<<@game.monsters).flatten!
-
-		if @user.id == @game.gamemaster_id
-			@monsters = @game.monsters
+		@monsters = @game.monsters
+		@all_characters = @game.characters		
+		@encounter = @game.encounters.where(active:true)[0]
+		if @encounter
+			@players = ([]<<@encounter.characters<<@encounter.monsters).flatten!
+		end
 		
+		if @user.id == @game.gamemaster_id		
 			@all_actions = []
 			@monsters.each do |monster|
 				@actions = monster.combat_actions
@@ -57,7 +59,8 @@ class StatementsController < ApplicationController
 		count=0
 		@targets =[]
   		@game = Game.find(params[:game_id])
-  		@players = ([]<<@game.characters<<@game.monsters).flatten!
+  		@encounter = @game.encounters.where(active:true)[0]
+		@players = ([]<<@encounter.characters<<@encounter.monsters).flatten!
   		while count < @players.length
   			puts "BANG #{params["player"+count.to_s]}"
   			if params["player"+count.to_s] == '1' 

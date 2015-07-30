@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717214456) do
+ActiveRecord::Schema.define(version: 20150729191856) do
 
   create_table "action_ownerships", force: :cascade do |t|
     t.integer  "monster_id"
@@ -55,6 +55,11 @@ ActiveRecord::Schema.define(version: 20150717214456) do
     t.string   "race_bonus_choice"
     t.integer  "dice"
     t.string   "equipment"
+    t.string   "name"
+    t.string   "status"
+    t.boolean  "bleeding"
+    t.boolean  "grappled"
+    t.integer  "current_hp"
   end
 
   add_index "characters", ["dice"], name: "index_characters_on_dice"
@@ -83,6 +88,8 @@ ActiveRecord::Schema.define(version: 20150717214456) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "game_id"
+    t.boolean  "active"
+    t.string   "name"
   end
 
   add_index "encounters", ["game_id"], name: "index_encounters_on_game_id"
@@ -109,6 +116,18 @@ ActiveRecord::Schema.define(version: 20150717214456) do
     t.integer  "combat_action_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+  end
+
+  create_table "monster_data", force: :cascade do |t|
+    t.integer  "current_hp"
+    t.boolean  "bleeding"
+    t.string   "status"
+    t.boolean  "grappled"
+    t.integer  "monster_id"
+    t.integer  "encounter_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "dice"
   end
 
   create_table "monster_ownerships", force: :cascade do |t|
