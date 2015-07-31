@@ -3,10 +3,13 @@
 	<p> <%= "#{character.race} #{character.character_class}" %> </p>
 	<% end %>
 
-<h3> monsters in this game: </h3>
-<% @monsters.each do |monster| %>
+
+<% if @encounter %>
+	<h3> monsters in this encounter: </h3> 
+	<% @current_monsters.each do |monster| %>
 	<p> <%= "#{monster.name}" %> </p>
-	<% end %>	
+	<% end %>
+<% end %>	
 
 <div class = "game_body">
 	<% @statements.each do |statement| %>
@@ -32,7 +35,7 @@
 		<p>available actions:</p>
 		<% x = "#"%>	
 		
-		<% @monsters.each do |monster| %> 
+		<% @current_monsters.each do |monster| %> 
 			<p> <%= monster.name %>'s actions: </p>
 			<% @monster_actions = monster.combat_actions %>
 			
@@ -46,13 +49,17 @@
 						
 					    <%= check_box_tag("player"+count.to_s) %>
 						<%= label_tag("player"+count.to_s, player.name) %>
-					   	<%= hidden_field_tag(:game_id, @game.id) %>
-					   	<%= hidden_field_tag(:action_id, action.id) %>
+					   	
 					    <% count +=1 %>
 					<% end %>
+					<%= hidden_field_tag(:game_id, @game.id) %>
+					<%= hidden_field_tag(:action_id, action.id) %>
 					<div><%= submit_tag 'commit act' %></div>	
 				<% end -%>	
-			<% end %>		
+			<% end %>
+			<%= hidden_field_tag(:player_id, monster.id) %>	
+			<%= hidden_field_tag(:player_type, "monster") %>
+	
 		<% end %>
 				
 	<% elsif !@character.nil? %>	
@@ -65,14 +72,17 @@
 				<button> <%= action.name  %> </button>
 			</a>
 				<%count = 0%>
+
 				<%= form_tag '/statements/do_action' do %>
 					<% @players.each do |player| %>
 					    <%= check_box_tag("player"+count.to_s) %>
-						<%= label_tag("player"+count.to_s, player.dexterity) %>
-					   	<%= hidden_field_tag(:game_id, @game.id) %>
-					   	<%= hidden_field_tag(:action_id, action.id) %>
+						<%= label_tag("player"+count.to_s, player.dexterity) %>	
 					    <% count +=1 %>
 					<% end %>
+					<%= hidden_field_tag(:game_id, @game.id) %>
+					<%= hidden_field_tag(:action_id, action.id) %>
+					<%= hidden_field_tag(:player_id, @character.id) %>
+					<%= hidden_field_tag(:player_type, "character") %>
 					<div><%= submit_tag 'commit act' %></div>	
 				<% end -%>	
 		<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729191856) do
+ActiveRecord::Schema.define(version: 20150731040048) do
 
   create_table "action_ownerships", force: :cascade do |t|
     t.integer  "monster_id"
@@ -76,6 +76,11 @@ ActiveRecord::Schema.define(version: 20150729191856) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "condition_counters", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "encounter_ownerships", force: :cascade do |t|
     t.integer  "encounter_id"
     t.integer  "monster_id"
@@ -90,6 +95,7 @@ ActiveRecord::Schema.define(version: 20150729191856) do
     t.integer  "game_id"
     t.boolean  "active"
     t.string   "name"
+    t.integer  "turn"
   end
 
   add_index "encounters", ["game_id"], name: "index_encounters_on_game_id"
