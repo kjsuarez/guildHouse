@@ -1,3 +1,5 @@
+
+
 <h3> characters playing this game: </h3>
 <% @all_characters.each do |character| %>
 	<p> <%= "#{character.race} #{character.character_class}" %> </p>
@@ -6,9 +8,11 @@
 
 <% if @encounter %>
 	<h3> monsters in this encounter: </h3> 
-	<% @current_monsters.each do |monster| %>
-	<p> <%= "#{monster.name}" %> </p>
+	<% @current_monsters.each do |monster_data| %>
+	<p> <%= "#{monster_data.monster.name}" %> </p>
 	<% end %>
+	<h3> current turn: </h3>
+	<%=  %>
 <% end %>	
 
 <div class = "game_body">
@@ -35,30 +39,30 @@
 		<p>available actions:</p>
 		<% x = "#"%>	
 		
-		<% @current_monsters.each do |monster| %> 
-			<p> <%= monster.name %>'s actions: </p>
-			<% @monster_actions = monster.combat_actions %>
+		<% @current_monsters.each do |monster_data| %> 
+			<p> <%= monster_data.monster.name %>'s actions: </p>
+			<% @monster_actions = monster_data.monster.combat_actions %>
 			
 			<% @monster_actions.each do |action| %>
 				<a data-method="put" href= <%= x %> > 
 					<button> <%= action.name  %> </button>
 				</a>
 				<%count = 0%>
-				<%= form_tag '/statements/do_action' do %>
+				<%= form_tag("/statements/do_action", method: "post") do %>
 					<% @players.each do |player| %>
-						
-					    <%= check_box_tag("player"+count.to_s) %>
 						<%= label_tag("player"+count.to_s, player.name) %>
-					   	
-					    <% count +=1 %>
+						<%= check_box_tag("player"+count.to_s) %>
+						<% count +=1 %>
 					<% end %>
+					<%= submit_tag("commit act") %>
 					<%= hidden_field_tag(:game_id, @game.id) %>
 					<%= hidden_field_tag(:action_id, action.id) %>
-					<div><%= submit_tag 'commit act' %></div>	
-				<% end -%>	
+					<%= hidden_field_tag(:player_id, monster_data.id) %>	
+					<%= hidden_field_tag(:player_type, "monster") %>
+				<% end %>
+					
 			<% end %>
-			<%= hidden_field_tag(:player_id, monster.id) %>	
-			<%= hidden_field_tag(:player_type, "monster") %>
+			
 	
 		<% end %>
 				

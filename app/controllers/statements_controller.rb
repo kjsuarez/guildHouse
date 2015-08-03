@@ -1,5 +1,6 @@
 class StatementsController < ApplicationController	
 	include CharactersHelper
+	include EncountersHelper
 	
 	def new
 		@user = current_user
@@ -11,7 +12,7 @@ class StatementsController < ApplicationController
 		if @encounter
 			@players = ([]<<@encounter.characters<<@encounter.monsters).flatten!
 			@current_characters = @encounter.characters
-			@current_monsters = @encounter.monsters
+			@current_monsters = @encounter.monster_data
 			turn_order = set_turn_order(@players)
 
 		end
@@ -66,22 +67,29 @@ class StatementsController < ApplicationController
   		@game = Game.find(params[:game_id])
   		@encounter = @game.encounters.where(active:true)[0]
   		@action = CombatAction.find(params[:action_id])
-		@players = ([]<<@encounter.characters<<@encounter.monsters).flatten!
+		@players = ([]<<@encounter.characters<<@encounter.monster_data).flatten!
 		turn_order = set_turn_order(@players)
-		
+		puts "blablablabla: #{@encounter.turn}, #{turn_order}"
+		current_player = current_turn(@encounter.turn,turn_order)
+		  
+		puts "here here herehere: #{turn_order}, #{@encounter.turn}"
+
   		if params[:player_type] == "monster" 
-  			if (turn_order[@encounter.turn][0] == params[:player_id]&&turn_order[@encounter.turn][1] == "monster")
+  			if (params[:player_id].to_i == current_player.id  &&turn_order[@encounter.turn][1] == "monster")
   				while count < @players.length
   					if params["player"+count.to_s] == '1' 
   						@targets << @players[count]
   					end
   					count+=1
   				end
-  				puts "heres the phone! #{@targets}, also:#{@players.length}"
   				act(@targets)
+  				puts "turn method: #{next_turn(@encounter.turn, @players.length)}"
+  				@encounter.turn = next_turn(@encounter.turn, @players.length)
+  				@encounter.save
+  				puts "the encounters turn: #{@encounter.turn}"
   				redirect_to "/games/#{ params[:game_id] }/statements/new"
   			else
-  				flash[:danger] = "you can't act until your turn"
+  				flash[:danger] = "you can't act until your turn" 
   				redirect_to "/games/#{ params[:game_id] }/statements/new"
   			end
   		else
@@ -93,8 +101,11 @@ class StatementsController < ApplicationController
   					end
   					count+=1
   				end
-  				puts "heres the phone! #{@targets}, also:#{@players.length}"
   				act(@targets)
+  				puts "turn method: #{next_turn(@encounter.turn, @players.length)}"
+  				@encounter.turn = next_turn(@encounter.turn, @players.length)
+  				@encounter.save
+  				puts "the encounters turn: #{@encounter.turn}"
   				redirect_to "/games/#{ params[:game_id] }/statements/new"
   			else
   				flash[:danger] = "you can't act until your turn"
@@ -104,20 +115,17 @@ class StatementsController < ApplicationController
 	end
 
 ##############
-	def set_turn_order(players)
-		turn_order = []
-		players.each do |guy|; turn_order<<[guy.dice,find_type(guy)];end;
-		turn_order.sort!
-		return turn_order
+	def next_turn(turn, players_length)
+		if turn == players_length
+			turn = 0
+		else
+			turn+=1
+		end
+		return turn
 	end
 
-	def find_type(guy)
-		if guy.class == Character
-			return "character"
-		else
-			return "monster"
-		end
-	end
+
+
 
 	def act(targets )
 		puts "it finally worked"
