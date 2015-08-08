@@ -79,7 +79,7 @@
 				<%= form_tag '/statements/do_action' do %>
 					<% @players.each do |player| %>
 					    <%= check_box_tag("player"+count.to_s) %>
-						<%= label_tag("player"+count.to_s, player.dexterity) %>	
+						<%= label_tag("player"+count.to_s, is_monster?(player)) %>	
 					    <% count +=1 %>
 					<% end %>
 					<%= hidden_field_tag(:game_id, @game.id) %>

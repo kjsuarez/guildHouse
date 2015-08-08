@@ -118,7 +118,7 @@ class StatementsController < ApplicationController
 
 ##############
 	def next_turn(turn, players_length)
-		if turn == players_length
+		if turn == players_length-1
 			turn = 0
 		else
 			turn+=1
@@ -126,11 +126,16 @@ class StatementsController < ApplicationController
 		return turn
 	end
 
-
-
-
 	def act(action,targets)
 		puts "it finally worked"
+
+		affliction = ConditionCounter.new
+		# loop through targets
+		# for each target, 
+		# make a new condition counter
+		# if targets class is Monster
+		# add targets id to monster_id
+		# else add targets id to character_id
 	end
 
 	def statement_params # selected attributes of user object passed as a hash
@@ -138,3 +143,9 @@ class StatementsController < ApplicationController
 	end
 
 end
+
+
+
+
+
+
