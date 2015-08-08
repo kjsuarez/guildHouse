@@ -10,11 +10,13 @@ class StatementsController < ApplicationController
 		@encounter = @game.encounters.where(active:true)[0]
 
 		if @encounter
-			@players = ([]<<@encounter.characters<<@encounter.monsters).flatten!
+			@players = ([]<<@encounter.characters<<@encounter.monster_data).flatten!
 			@current_characters = @encounter.characters
 			@current_monsters = @encounter.monster_data
 			turn_order = set_turn_order(@players)
-
+			
+			@current_player = current_turn(@encounter.turn,turn_order)
+			puts "this is it #{turn_order}"
 		end
 		
 		if @user.id == @game.gamemaster_id		
@@ -72,7 +74,6 @@ class StatementsController < ApplicationController
 		puts "blablablabla: #{@encounter.turn}, #{turn_order}"
 		current_player = current_turn(@encounter.turn,turn_order)
 		  
-		puts "here here herehere: #{turn_order}, #{@encounter.turn}"
 
   		if params[:player_type] == "monster" 
   			if (params[:player_id].to_i == current_player.id  &&turn_order[@encounter.turn][1] == "monster")
@@ -82,10 +83,11 @@ class StatementsController < ApplicationController
   					end
   					count+=1
   				end
-  				act(@targets)
+  				act(@action,@targets)
   				puts "turn method: #{next_turn(@encounter.turn, @players.length)}"
   				@encounter.turn = next_turn(@encounter.turn, @players.length)
   				@encounter.save
+  				take_turn(current_player)
   				puts "the encounters turn: #{@encounter.turn}"
   				redirect_to "/games/#{ params[:game_id] }/statements/new"
   			else
@@ -93,18 +95,18 @@ class StatementsController < ApplicationController
   				redirect_to "/games/#{ params[:game_id] }/statements/new"
   			end
   		else
-  			if (turn_order[@encounter.turn][0] == params[:player_id]&&
-  			  	turn_order[@encounter.turn][1] == "character")
+  			if (params[:player_id].to_i == current_player.id && turn_order[@encounter.turn][1] == "character")
   				while count < @players.length
   					if params["player"+count.to_s] == '1' 
   						@targets << @players[count]
   					end
   					count+=1
   				end
-  				act(@targets)
+  				act(@action,@targets)
   				puts "turn method: #{next_turn(@encounter.turn, @players.length)}"
   				@encounter.turn = next_turn(@encounter.turn, @players.length)
   				@encounter.save
+  				take_turn(current_player)
   				puts "the encounters turn: #{@encounter.turn}"
   				redirect_to "/games/#{ params[:game_id] }/statements/new"
   			else
@@ -127,7 +129,7 @@ class StatementsController < ApplicationController
 
 
 
-	def act(targets )
+	def act(action,targets)
 		puts "it finally worked"
 	end
 

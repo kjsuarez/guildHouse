@@ -1,10 +1,8 @@
 
-
 <h3> characters playing this game: </h3>
 <% @all_characters.each do |character| %>
 	<p> <%= "#{character.race} #{character.character_class}" %> </p>
 	<% end %>
-
 
 <% if @encounter %>
 	<h3> monsters in this encounter: </h3> 
@@ -12,7 +10,8 @@
 	<p> <%= "#{monster_data.monster.name}" %> </p>
 	<% end %>
 	<h3> current turn: </h3>
-	<%=  %>
+	
+	<%= is_monster?(@current_player) %>		
 <% end %>	
 
 <div class = "game_body">
@@ -50,7 +49,7 @@
 				<%count = 0%>
 				<%= form_tag("/statements/do_action", method: "post") do %>
 					<% @players.each do |player| %>
-						<%= label_tag("player"+count.to_s, player.name) %>
+						<%= label_tag("player"+count.to_s, is_monster?(player)) %>
 						<%= check_box_tag("player"+count.to_s) %>
 						<% count +=1 %>
 					<% end %>

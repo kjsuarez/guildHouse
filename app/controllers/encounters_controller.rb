@@ -37,7 +37,9 @@ class EncountersController < ApplicationController
 		@added_characters.each do |id|
 			@encounter.characters << Character.find(id)
 		end
-
+		@game.encounters << @encounter
+		@game.save
+		@encounter.save
 		redirect_to "/games/#{ params[:game_id] }/statements/new"
 	end
 	
