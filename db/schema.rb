@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150808015219) do
+ActiveRecord::Schema.define(version: 20150813051900) do
 
   create_table "action_ownerships", force: :cascade do |t|
     t.integer  "monster_id"
@@ -69,19 +69,24 @@ ActiveRecord::Schema.define(version: 20150808015219) do
   create_table "combat_actions", force: :cascade do |t|
     t.string   "name"
     t.integer  "damage"
-    t.string   "effects"
-    t.string   "buffs"
-    t.string   "immunities"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "area"
+    t.string   "onset"
+    t.string   "saving_throw"
+    t.string   "frequency"
+    t.integer  "cure"
   end
 
   create_table "condition_counters", force: :cascade do |t|
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "character_id"
     t.integer  "monster_datum_id"
     t.integer  "combat_action_id"
+    t.integer  "turns_left"
+    t.integer  "onset_counter"
+    t.integer  "frequency_counter"
   end
 
   add_index "condition_counters", ["character_id"], name: "index_condition_counters_on_character_id"
