@@ -4,7 +4,7 @@ module EncountersHelper
 		if current_player.class ==  MonsterDatum
 			x = current_player.monster.name 
 		else 
-			x = current_player.name 
+			x = current_player.character.name 
 		end 
 		return x
 	end
@@ -13,7 +13,7 @@ module EncountersHelper
 		puts "your looking for this:  #{turn},#{turn_order}"
 		player_id = turn_order[turn][0]; type = turn_order[turn][1]
 		if type == "character"
-			current_player = Character.find(player_id)
+			current_player = CharacterDatum.find(player_id)
 		elsif type == "monster"
 			current_player = MonsterDatum.find( player_id)
 		else
@@ -37,10 +37,12 @@ module EncountersHelper
 	end
 
 	def find_type(guy)
-		if guy.class == Character
+		if guy.class == CharacterDatum
 			return "character"
-		else
+		elsif guy.class == MonsterDatum
 			return "monster"
+		else
+			put "player class isn't characterdata or monsterdata "
 		end
 	end	
 
@@ -51,7 +53,7 @@ module EncountersHelper
 		return turn_order
 	end
 
-	def get_damage(target, action)
+	def get_damage(action)
 		damage = action.damage
 		dice_regex = /^\d+(d)\d+$/
 		num_regex = /^\d+$/
@@ -68,42 +70,24 @@ module EncountersHelper
 
 	def deal_damage(target, area, damage)
 		#deal damage to target at area
-		if find_type(target) == "character"
-			if area == "hp"
-			target.hit_points = damage
-			elsif area == "strength"
-
-			elsif area == "dexterity"
+	
+		if area == "hp"
+			target.current_hp = target.current_hp-damage
+			target.save
 			
-			elsif area == "constitution"
+		elsif area == "strength"
 
-			elsif area == "intellidence"		 
-				
-			elsif area == "wisdom"			
-						
-			else
-				
-			end
-		elsif find_type(target) == "monster"
-			if area == "hp"
-			target.
-			elsif area == "strength"
+		elsif area == "dexterity"
+		
+		elsif area == "constitution"
 
-			elsif area == "dexterity"
+		elsif area == "intellidence"		 
 			
-			elsif area == "constitution"
-
-			elsif area == "intellidence"		 
-				
-			elsif area == "wisdom"			
-						
-			else
-				
-			end					
+		elsif area == "wisdom"			
+					
 		else
-			puts "we got a problem dealing damage"
-		end
-
+			
+		end			
 		
 		#hp
 		#strength
@@ -125,7 +109,7 @@ module EncountersHelper
 
 	def dice_roll(number,size)
 		value = 0
-		number.each do value += rand(size)+1; puts value; end		
+		number.times do value += rand(size)+1; puts value; end		
 		return value
 	end
 	

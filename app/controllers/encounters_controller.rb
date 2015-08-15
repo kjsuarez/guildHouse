@@ -1,5 +1,5 @@
 class EncountersController < ApplicationController
-	def new
+	def new								
 		@encounter = Encounter.new
 		@game = Game.find(params[:game_id])
 		@characters = @game.characters
@@ -29,13 +29,15 @@ class EncountersController < ApplicationController
 
 		@added_monsters.each_index do |index|
 			@added_monsters[index][1].to_i.times do
-				mon = MonsterDatum.new(monster_id: @added_monsters[index][0], encounter_id: @encounter.id)	
+				mon = MonsterDatum.new(monster_id: @added_monsters[index][0], encounter_id: @encounter.id, current_hp: Monster.find(@added_monsters[index][0]).hit_points)	
 				mon.save
 			end
 		end
 
 		@added_characters.each do |id|
 			@encounter.characters << Character.find(id)
+			guy = CharacterDatum.new(character_id: id, encounter_id: @encounter.id, current_hp: Character.find(id).hit_points)
+			guy.save
 		end
 		@game.encounters << @encounter
 		@game.save

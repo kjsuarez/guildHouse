@@ -10,11 +10,11 @@ class StatementsController < ApplicationController
 		@encounter = @game.encounters.where(active:true)[0]
 
 		if @encounter
-			@players = ([]<<@encounter.characters<<@encounter.monster_data).flatten!
-			@current_characters = @encounter.characters
+			@players = ([]<<@encounter.character_data<<@encounter.monster_data).flatten!
+			@current_characters = @encounter.character_data
 			@current_monsters = @encounter.monster_data
 			turn_order = set_turn_order(@players)
-			
+			puts "the players: #{@players}"
 			@current_player = current_turn(@encounter.turn,turn_order)
 			puts "this is it #{turn_order}"
 		end
@@ -69,7 +69,7 @@ class StatementsController < ApplicationController
   		@game = Game.find(params[:game_id])
   		@encounter = @game.encounters.where(active:true)[0]
   		@action = CombatAction.find(params[:action_id])
-		@players = ([]<<@encounter.characters<<@encounter.monster_data).flatten!
+		@players = ([]<<@encounter.character_data<<@encounter.monster_data).flatten!
 		turn_order = set_turn_order(@players)
 		puts "blablablabla: #{@encounter.turn}, #{turn_order}"
 		current_player = current_turn(@encounter.turn,turn_order)
@@ -132,12 +132,16 @@ class StatementsController < ApplicationController
 			condition_hash = {combat_action_id: action.id}
 			# loop through targets
 			targets.each do |target|
-			condition_hash.merge({turns_left: action.limit, onset_counter: action.onset, frequency_counter: action.frequency})
-			# make a new condition counter
-			target.condition_counters.new(condition_hash)		
-		end
+				condition_hash.merge({turns_left: action.limit, onset_counter: action.onset, frequency_counter: action.frequency})
+				# make a new condition counter
+				target.condition_counters.new(condition_hash)
+			end		
 		else
+			puts "Look at me I'm doing damage!"
 			#immidiatly deal damage
+			targets.each do |target|
+				deal_damage(target, action.area, get_damage(action))
+			end		
 			#say you did damage
 		end	
 	end
@@ -145,7 +149,6 @@ class StatementsController < ApplicationController
 	def statement_params # selected attributes of user object passed as a hash
 		params.require(:statement).permit(:content, :game_id, :character_id )
 	end
-
 end
 
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150815000202) do
+ActiveRecord::Schema.define(version: 20150815034618) do
 
   create_table "action_ownerships", force: :cascade do |t|
     t.integer  "monster_id"
@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(version: 20150815000202) do
     t.datetime "updated_at",   null: false
     t.integer  "character_id"
     t.integer  "encounter_id"
+    t.integer  "dice"
+    t.integer  "strength"
+    t.integer  "dexterity"
+    t.integer  "constitution"
+    t.integer  "intelligence"
+    t.integer  "wisdom"
+    t.integer  "charisma"
   end
 
   add_index "character_data", ["character_id"], name: "index_character_data_on_character_id"
@@ -161,6 +168,12 @@ ActiveRecord::Schema.define(version: 20150815000202) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "dice"
+    t.integer  "strength"
+    t.integer  "dexterity"
+    t.integer  "constitution"
+    t.integer  "intelligence"
+    t.integer  "wisdom"
+    t.integer  "charisma"
   end
 
   create_table "monster_ownerships", force: :cascade do |t|
@@ -178,7 +191,6 @@ ActiveRecord::Schema.define(version: 20150815000202) do
     t.integer  "xp"
     t.integer  "init_mod"
     t.integer  "ac"
-    t.integer  "hp"
     t.integer  "fort_save"
     t.integer  "ref_save"
     t.integer  "strength"
@@ -193,6 +205,7 @@ ActiveRecord::Schema.define(version: 20150815000202) do
     t.string   "name"
     t.string   "flavor_text"
     t.integer  "dice"
+    t.integer  "hit_points"
   end
 
   create_table "statements", force: :cascade do |t|
