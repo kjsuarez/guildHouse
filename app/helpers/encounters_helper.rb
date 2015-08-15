@@ -50,5 +50,90 @@ module EncountersHelper
 		turn_order.sort!.reverse!
 		return turn_order
 	end
+
+	def get_damage(target, action)
+		damage = action.damage
+		dice_regex = /^\d+(d)\d+$/
+		num_regex = /^\d+$/
+		if dice_regex.match(damage)
+			damage = dice_roll(number_of_dice(damage), size_of_dice(damage))
+			return damage
+		elsif num_regex.math(damage)
+			damage = damage.to_i		
+			return damage
+		else
+			puts "something went wrong in encounter_helper"
+		end
+	end
+
+	def deal_damage(target, area, damage)
+		#deal damage to target at area
+		if find_type(target) == "character"
+			if area == "hp"
+			target.hit_points = damage
+			elsif area == "strength"
+
+			elsif area == "dexterity"
+			
+			elsif area == "constitution"
+
+			elsif area == "intellidence"		 
+				
+			elsif area == "wisdom"			
+						
+			else
+				
+			end
+		elsif find_type(target) == "monster"
+			if area == "hp"
+			target.
+			elsif area == "strength"
+
+			elsif area == "dexterity"
+			
+			elsif area == "constitution"
+
+			elsif area == "intellidence"		 
+				
+			elsif area == "wisdom"			
+						
+			else
+				
+			end					
+		else
+			puts "we got a problem dealing damage"
+		end
+
+		
+		#hp
+		#strength
+		#dexterity
+		#constitution
+		#intellidence
+		#wisdom
+	end
+
+	def number_of_dice(str)
+		thing = str.index("d")
+		return str[0..thing-1].to_i
+	end
+
+	def size_of_dice(str)
+		thing = str.index("d")
+		return str[thing-1..-1].to_i
+	end
+
+	def dice_roll(number,size)
+		value = 0
+		number.each do value += rand(size)+1; puts value; end		
+		return value
+	end
 	
 end
+
+
+
+
+
+
+

@@ -128,13 +128,18 @@ class StatementsController < ApplicationController
 
 	def act(action,targets)
 		puts "it finally worked"
-
-		
-		# loop through targets
-		targets.each do |target|
+		unless action.frequency.nil?
+			condition_hash = {combat_action_id: action.id}
+			# loop through targets
+			targets.each do |target|
+			condition_hash.merge({turns_left: action.limit, onset_counter: action.onset, frequency_counter: action.frequency})
 			# make a new condition counter
-			target.condition_counters.new()		
+			target.condition_counters.new(condition_hash)		
 		end
+		else
+			#immidiatly deal damage
+			#say you did damage
+		end	
 	end
 
 	def statement_params # selected attributes of user object passed as a hash

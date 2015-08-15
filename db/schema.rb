@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813051900) do
+ActiveRecord::Schema.define(version: 20150815000202) do
 
   create_table "action_ownerships", force: :cascade do |t|
     t.integer  "monster_id"
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(version: 20150813051900) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
+
+  create_table "character_data", force: :cascade do |t|
+    t.integer  "current_hp"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "character_id"
+    t.integer  "encounter_id"
+  end
+
+  add_index "character_data", ["character_id"], name: "index_character_data_on_character_id"
+  add_index "character_data", ["encounter_id"], name: "index_character_data_on_encounter_id"
 
   create_table "characters", force: :cascade do |t|
     t.string   "strength"
@@ -68,13 +79,15 @@ ActiveRecord::Schema.define(version: 20150813051900) do
 
   create_table "combat_actions", force: :cascade do |t|
     t.string   "name"
-    t.integer  "damage"
+    t.string   "damage"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "area"
-    t.string   "onset"
+    t.integer  "onset"
     t.string   "saving_throw"
-    t.string   "frequency"
+    t.integer  "saving_value"
+    t.integer  "frequency"
+    t.integer  "limit"
     t.integer  "cure"
   end
 
@@ -87,8 +100,10 @@ ActiveRecord::Schema.define(version: 20150813051900) do
     t.integer  "turns_left"
     t.integer  "onset_counter"
     t.integer  "frequency_counter"
+    t.integer  "character_data_id"
   end
 
+  add_index "condition_counters", ["character_data_id"], name: "index_condition_counters_on_character_data_id"
   add_index "condition_counters", ["character_id"], name: "index_condition_counters_on_character_id"
   add_index "condition_counters", ["combat_action_id"], name: "index_condition_counters_on_combat_action_id"
   add_index "condition_counters", ["monster_datum_id"], name: "index_condition_counters_on_monster_datum_id"
