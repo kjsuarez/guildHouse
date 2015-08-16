@@ -6,7 +6,7 @@ class AddAssociationsToCharacterData < ActiveRecord::Migration
   	add_reference :character_data, :encounter, index: true
     add_foreign_key :character_data, :encounter
 
-	add_reference :character_data, :condition_counters, index: true
-    add_foreign_key :character_data, :condition_counters              	
+	add_reference :condition_counters, :character_datum, index: true
+    add_foreign_key :condition_counters, :character_datum           	
   end
 end

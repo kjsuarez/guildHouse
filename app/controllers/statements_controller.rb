@@ -77,7 +77,7 @@ class StatementsController < ApplicationController
 		current_player = current_turn(@encounter.turn,turn_order)
 		puts "From do_action guildHouse thinks it's #{is_monster?(current_player)}'s turn"  
 
-		puts "\ncomparing actor: #{@current_actor} and player: #{current_player}"
+		puts "\ncomparing actor: #{is_monster?(@current_actor)} and player: #{is_monster?(current_player)}"
 		if @current_actor == current_player #if it's your turn, guildHouse accepts the action, else flash an error
 			@targets = []
 			puts "\nguildHouse thinks its the actors turn"
@@ -90,7 +90,7 @@ class StatementsController < ApplicationController
 				count+=1
 			end
 			puts "\n made it past setting targets"
-			act(@action,@targets)
+			act(@current_actor,@action,@targets)
 			puts "turn method: #{next_turn(@encounter.turn, @players.length)}"
 			@encounter.turn = next_turn(@encounter.turn, @players.length)
 			@encounter.save
@@ -98,6 +98,7 @@ class StatementsController < ApplicationController
 			puts "the encounters turn: #{@encounter.turn}"
 			redirect_to "/games/#{ params[:game_id] }/statements/new"
 		else
+			puts "\nguildHouse thinks the actor needs to wait his turn"
 			flash[:danger] = "you can't act until your turn"
   			redirect_to "/games/#{ params[:game_id] }/statements/new"
 		end 		
@@ -113,7 +114,7 @@ class StatementsController < ApplicationController
 		return turn
 	end
 
-	def act(action,targets)
+	def act(actor, action,targets)
 		puts "inside the act method, imposing action #{action} on #{targets}"
 		unless action.frequency.nil?
 			condition_hash = {combat_action_id: action.id}
@@ -126,7 +127,11 @@ class StatementsController < ApplicationController
 				# make a new condition counter
 				puts "the condition_hash: #{condition_hash}"
 				target.condition_counters.new(condition_hash)
-				puts "target: #{target} was hit with action: #{action}"
+				target.save
+				result = "#{is_monster?(actor)} used #{action.name} on #{is_monster?(target)}"
+				statement = target.encounter.game.statements.new(content: result)
+				statement.save
+				puts "target: #{target} was hit with action: #{action.name}"
 			end		
 		else
 			puts "Look at me I'm doing damage!"
@@ -134,7 +139,7 @@ class StatementsController < ApplicationController
 			targets.each do |target|
 				deal_damage(target, action.area, get_damage(action))
 				puts "target: #{target} was hit with action: #{action}"
-				result = "#{target} was hit with #{action} for #{action.damage} damage"
+				result = "#{is_monster?(actor)} used #{action.name} on #{is_monster?(target)}"
 				statement = target.encounter.game.statements.new(content: result)
 				statement.save
 			end		

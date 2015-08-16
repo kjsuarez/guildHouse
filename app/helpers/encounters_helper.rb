@@ -40,14 +40,37 @@ module EncountersHelper
 
 	def take_turn(current_player)
 		#loop through curent_player's afflictions
-		#if onset>0 then onset-1 
-		#else:
-		#if frequency>0, frequency-1,
-		#else:
-		#set frequency_counter to affliction.action.frequency
-		#deal damage to area
-		#wait for current_player to act
-		
+		current_player.condition_counters.each do |ailment|			
+			action = ailment.combat_action
+			if ailment.onset_counter > 1   #only start doing damage if onset is 0
+			 	ailment.onset_counter -= 1
+			elsif ailment.onset_counter == 1  #as soon as onset ends deal damage
+			 	ailment.onset_counter -= 1 
+			 	deal_damage(current_player, action.area, get_damage(action)) 
+			 	ailment.turns_left -=1	
+			else
+			 	if ailment.frequency_counter > 0 # count down until next damage dealt
+			 		ailment.frequency_counter -= 1
+			 		ailment.turns_left -=1	
+			 	else
+			 		#set frequency_counter to affliction.action.frequency
+			 		ailment.frequency_counter = action.frequency
+					#deal damage to area
+					deal_damage(action.name, action.area, action.damage) 
+					ailment.turns_left -=1
+					result = "#{is_monster?(current_player)} took damage from #{action.name}"
+					statement = current_player.encounter.game.statements.new(content: result)
+					statement.save
+			 	end			 	
+			end 
+			if ailment.turns_left < 1
+				ailment.destroy!
+				result = "#{is_monster?(current_player)} recovered from #{action.name}"
+				statement = current_player.encounter.game.statements.new(content: result)
+				statement.save
+			end
+			ailment.save			
+		end		
 	end
 
 	def find_type(guy)
@@ -74,7 +97,7 @@ module EncountersHelper
 		if dice_regex.match(damage)
 			damage = dice_roll(number_of_dice(damage), size_of_dice(damage))
 			return damage
-		elsif num_regex.math(damage)
+		elsif num_regex.match(damage)
 			damage = damage.to_i		
 			return damage
 		else
