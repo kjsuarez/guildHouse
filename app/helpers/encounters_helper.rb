@@ -10,7 +10,7 @@ module EncountersHelper
 	end
 
 	def current_turn(turn, turn_order) # decides whose turn it is
-		
+		puts "from current_turn: turn: #{turn}, order: #{turn_order} "
 		player_id = turn_order[turn][0]; type = turn_order[turn][1]
 		if type == "character"
 			current_player = CharacterDatum.find(player_id)

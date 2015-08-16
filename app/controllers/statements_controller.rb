@@ -80,12 +80,16 @@ class StatementsController < ApplicationController
 		puts "\ncomparing actor: #{@current_actor} and player: #{current_player}"
 		if @current_actor == current_player #if it's your turn, guildHouse accepts the action, else flash an error
 			@targets = []
+			puts "\nguildHouse thinks its the actors turn"
+			puts "\n all players: #{@players}"
 			while count < @players.length 
 				if params["player"+count.to_s] == '1' 
+					puts "\n player #{count.to_s} added to targets"
 					@targets << @players[count]
 				end
 				count+=1
 			end
+			puts "\n made it past setting targets"
 			act(@action,@targets)
 			puts "turn method: #{next_turn(@encounter.turn, @players.length)}"
 			@encounter.turn = next_turn(@encounter.turn, @players.length)
@@ -110,13 +114,17 @@ class StatementsController < ApplicationController
 	end
 
 	def act(action,targets)
-		
+		puts "inside the act method, imposing action #{action} on #{targets}"
 		unless action.frequency.nil?
 			condition_hash = {combat_action_id: action.id}
 			# loop through targets
 			targets.each do |target|
-				condition_hash.merge({turns_left: action.limit, onset_counter: action.onset, frequency_counter: action.frequency})
+				puts "before condition hash gets merged, action: #{action}, target: #{target}"
+				hash = {turns_left: action.limit, onset_counter: action.onset, frequency_counter: action.frequency}
+				puts "the original hash: #{hash}"
+				condition_hash.merge!(hash)
 				# make a new condition counter
+				puts "the condition_hash: #{condition_hash}"
 				target.condition_counters.new(condition_hash)
 				puts "target: #{target} was hit with action: #{action}"
 			end		

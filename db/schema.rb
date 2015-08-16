@@ -37,10 +37,11 @@ ActiveRecord::Schema.define(version: 20150815034618) do
 
   create_table "character_data", force: :cascade do |t|
     t.integer  "current_hp"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.integer  "character_id"
     t.integer  "encounter_id"
+    t.integer  "condition_counters_id"
     t.integer  "dice"
     t.integer  "strength"
     t.integer  "dexterity"
@@ -51,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150815034618) do
   end
 
   add_index "character_data", ["character_id"], name: "index_character_data_on_character_id"
+  add_index "character_data", ["condition_counters_id"], name: "index_character_data_on_condition_counters_id"
   add_index "character_data", ["encounter_id"], name: "index_character_data_on_encounter_id"
 
   create_table "characters", force: :cascade do |t|
@@ -107,10 +109,8 @@ ActiveRecord::Schema.define(version: 20150815034618) do
     t.integer  "turns_left"
     t.integer  "onset_counter"
     t.integer  "frequency_counter"
-    t.integer  "character_data_id"
   end
 
-  add_index "condition_counters", ["character_data_id"], name: "index_condition_counters_on_character_data_id"
   add_index "condition_counters", ["character_id"], name: "index_condition_counters_on_character_id"
   add_index "condition_counters", ["combat_action_id"], name: "index_condition_counters_on_combat_action_id"
   add_index "condition_counters", ["monster_datum_id"], name: "index_condition_counters_on_monster_datum_id"
