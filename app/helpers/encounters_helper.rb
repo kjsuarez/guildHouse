@@ -1,6 +1,6 @@
 module EncountersHelper
 	
-	def is_monster?(current_player)
+	def is_monster?(current_player) # returns the name of a character or monster
 		if current_player.class ==  MonsterDatum
 			x = current_player.monster.name 
 		else 
@@ -9,19 +9,33 @@ module EncountersHelper
 		return x
 	end
 
-	def current_turn(turn, turn_order)
-		puts "your looking for this:  #{turn},#{turn_order}"
+	def current_turn(turn, turn_order) # decides whose turn it is
+		
 		player_id = turn_order[turn][0]; type = turn_order[turn][1]
 		if type == "character"
 			current_player = CharacterDatum.find(player_id)
 		elsif type == "monster"
-			current_player = MonsterDatum.find( player_id)
+			current_player = MonsterDatum.find(player_id)
 		else
 			puts "can't find current player in encounters helper"
 			current_player == nil
 		end
 		
 		return current_player
+		puts "guildHouse is deciding whose turn it is, it thinks its: #{current_player}"
+		puts "via turn #{turn} of list #{turn_order}"
+	end
+
+	def current_actor(actor_type, actor_id) # returns a character_data or monster_data object based on action inputs
+		if actor_type == "character"
+			actor = CharacterDatum.find(actor_id)
+			return actor
+		elsif actor_type == "monster"
+			actor = MonsterDatum.find(actor_id)	
+			return actor	
+		else 
+			puts "\n something went wrong deserning the present actor"
+		end
 	end
 
 	def take_turn(current_player)
@@ -42,7 +56,7 @@ module EncountersHelper
 		elsif guy.class == MonsterDatum
 			return "monster"
 		else
-			put "player class isn't characterdata or monsterdata "
+			put "player class isn't characterdata or monsterdata"
 		end
 	end	
 
@@ -53,7 +67,7 @@ module EncountersHelper
 		return turn_order
 	end
 
-	def get_damage(action)
+	def get_damage(action) # rolls some dice to determine damage done
 		damage = action.damage
 		dice_regex = /^\d+(d)\d+$/
 		num_regex = /^\d+$/
@@ -73,28 +87,28 @@ module EncountersHelper
 	
 		if area == "hp"
 			target.current_hp = target.current_hp-damage
-			target.save
-			
+			target.save		
 		elsif area == "strength"
-
+			target.strength = target.strength-damage
+			target.save
 		elsif area == "dexterity"
-		
+			target.dexterity = target.dexterity-damage
+			target.save
 		elsif area == "constitution"
-
-		elsif area == "intellidence"		 
-			
+			target.constitution = target.constitution-damage
+			target.save
+		elsif area == "intelligence"		 
+			target.intelligence = target.intellidence-damage
+			target.save
 		elsif area == "wisdom"			
-					
+			target.wisdom = target.wisdom-damage
+			target.save
+		elsif area == "charisma"			
+			target.charisma = target.charisma-damage
+			target.save			
 		else
-			
-		end			
-		
-		#hp
-		#strength
-		#dexterity
-		#constitution
-		#intellidence
-		#wisdom
+			puts "I dont know where to deal damage! target: #{target}, area: #{area}"
+		end				
 	end
 
 	def number_of_dice(str)

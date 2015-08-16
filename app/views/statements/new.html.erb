@@ -5,13 +5,23 @@
 	<% end %>
 
 <% if @encounter %>
+
 	<h3> monsters in this encounter: </h3> 
 	<% @current_monsters.each do |monster_data| %>
 	<p> <%= "#{monster_data.monster.name}" %> </p>
 	<% end %>
-	<h3> current turn: </h3>
+
 	
-	<%= is_monster?(@current_player) %>		
+	<% unless  @character.nil?%>
+		<h3>your character:</h3>
+		<%= link_to "#{@character.name} the
+		#{@character.race} #{@character.character_class}", @character %>
+		<%= "hp: #{@character_data.current_hp}/#{@character.hit_points}" %>
+	<% end %>
+
+	<h3> current turn: </h3>	
+	<%= is_monster?(@current_player) %>	
+
 <% end %>	
 
 <div class = "game_body">
@@ -84,7 +94,7 @@
 					<% end %>
 					<%= hidden_field_tag(:game_id, @game.id) %>
 					<%= hidden_field_tag(:action_id, action.id) %>
-					<%= hidden_field_tag(:player_id, @character.id) %>
+					<%= hidden_field_tag(:player_id, @character_data.id) %>
 					<%= hidden_field_tag(:player_type, "character") %>
 					<div><%= submit_tag 'commit act' %></div>	
 				<% end -%>	
