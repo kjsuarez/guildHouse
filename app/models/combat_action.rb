@@ -1,4 +1,6 @@
 class CombatAction < ActiveRecord::Base
+	belongs_to :user
+
 	has_many :condition_counters
 
 	has_many :action_ownerships

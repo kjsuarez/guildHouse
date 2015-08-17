@@ -1,0 +1,43 @@
+<h2> make a new monster </h2>
+
+<%= form_for(@monster) do |f| %>
+	<%= f.label :name %>
+ 	<%= f.text_field(:name) %>
+
+ 	<p>
+ 		<%= f.label :hit_points %>
+ 		<%= f.number_field(:hit_points) %>
+ 	</p>
+ 	
+	<p>
+ 		<%= f.label :strength %>
+ 		<%= f.number_field(:strength, :value => 10, step: 5) %>
+	</p>
+	<p>
+		<%= f.label :dexterity%>
+		<%= f.number_field(:dexterity, :value => 10, step: 5) %>		
+	</p>
+	<p>
+		<%= f.label :constitution%>
+		<%= f.number_field(:constitution, :value => 10, step: 5) %>
+	</p>
+	<p>
+		<%= f.label :intelligence%>
+		<%= f.number_field(:intelligence, :value => 10, step: 5) %>
+	</p>
+	<p>
+		<%= f.label :wisdom%>
+		<%= f.number_field(:wisdom, :value => 10, step: 5) %>
+	</p>
+	<p>
+		<%= f.label :charisma%>
+		<%= f.number_field(:charisma, :value => 10, step: 5) %>
+	</p>
+
+	<p>
+	<%= f.label :flavor_text %>
+ 	<%= f.text_area(:flavor_text) %>		
+	<p>
+		<%= f.submit %>
+	</p>
+<% end %>

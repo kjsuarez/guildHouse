@@ -12,4 +12,9 @@ module CharactersHelper
 		x = {:score => score, :mod => mod}
 	end
 
+	def score_to_mod(score)  	# the formula that derives ability
+		modifier = (score/2)-5 	# modifier from ability score
+		return modifier
+	end
+	
 end

@@ -1,6 +1,6 @@
 module EncountersHelper
 	
-	def is_monster?(current_player) # returns the name of a character or monster
+	def name_of(current_player) # returns the name of a character or monster
 		if current_player.class ==  MonsterDatum
 			x = current_player.monster.name 
 		else 
@@ -10,20 +10,20 @@ module EncountersHelper
 	end
 
 	def current_turn(turn, turn_order) # decides whose turn it is
-		puts "from current_turn: turn: #{turn}, order: #{turn_order} "
+		puts "\n from current_turn: turn: #{turn}, order: #{turn_order} "
 		player_id = turn_order[turn][0]; type = turn_order[turn][1]
 		if type == "character"
 			current_player = CharacterDatum.find(player_id)
 		elsif type == "monster"
 			current_player = MonsterDatum.find(player_id)
 		else
-			puts "can't find current player in encounters helper"
+			puts "\n can't find current player in encounters helper"
 			current_player == nil
 		end
 		
 		return current_player
-		puts "guildHouse is deciding whose turn it is, it thinks its: #{current_player}"
-		puts "via turn #{turn} of list #{turn_order}"
+		puts "\n guildHouse is deciding whose turn it is, it thinks its: #{current_player}"
+		puts "\n via turn #{turn} of list #{turn_order}"
 	end
 
 	def current_actor(actor_type, actor_id) # returns a character_data or monster_data object based on action inputs
@@ -40,32 +40,45 @@ module EncountersHelper
 
 	def take_turn(current_player)
 		#loop through curent_player's afflictions
-		current_player.condition_counters.each do |ailment|			
+		puts "\n In take_turn method"
+		current_player.condition_counters.each do |ailment|
+			puts "\n #{ailment} of #{name_of(current_player)}"			
 			action = ailment.combat_action
 			if ailment.onset_counter > 1   #only start doing damage if onset is 0
 			 	ailment.onset_counter -= 1
+			 	current_player.saves_rolled = true 
+				current_player.save
+			 	puts "\n onset_counter above 1, Updated ailment: #{ailment}"
 			elsif ailment.onset_counter == 1  #as soon as onset ends deal damage
 			 	ailment.onset_counter -= 1 
-			 	deal_damage(current_player, action.area, get_damage(action)) 
+			 	#deal_damage(current_player, action.area, get_damage(action))
+			 	current_player.saves_rolled = true 
 			 	ailment.turns_left -=1	
+			 	puts "\n onset_counter at 1 Updated ailment: #{ailment}"
 			else
 			 	if ailment.frequency_counter > 0 # count down until next damage dealt
 			 		ailment.frequency_counter -= 1
 			 		ailment.turns_left -=1	
+			 		current_player.saves_rolled = true 
+					current_player.save
+			 		puts "\n onset_counter at 0, frequency above 0, Updated ailment: #{ailment}"
 			 	else
 			 		#set frequency_counter to affliction.action.frequency
 			 		ailment.frequency_counter = action.frequency
 					#deal damage to area
-					deal_damage(action.name, action.area, action.damage) 
+					#deal_damage(action.name, action.area, action.damage)
+					current_player.saves_rolled = false 
+					current_player.save 
 					ailment.turns_left -=1
-					result = "#{is_monster?(current_player)} took damage from #{action.name}"
+					result = "#{name_of(current_player)} took damage from #{action.name}"
 					statement = current_player.encounter.game.statements.new(content: result)
 					statement.save
+					puts "\n taking damage from ailment Updated ailment: #{ailment}"
 			 	end			 	
 			end 
 			if ailment.turns_left < 1
 				ailment.destroy!
-				result = "#{is_monster?(current_player)} recovered from #{action.name}"
+				result = "#{name_of(current_player)} recovered from #{action.name}"
 				statement = current_player.encounter.game.statements.new(content: result)
 				statement.save
 			end
@@ -101,13 +114,13 @@ module EncountersHelper
 			damage = damage.to_i		
 			return damage
 		else
-			puts "something went wrong in encounter_helper"
+			puts "\n something went wrong in encounter_helper"
 		end
 	end
 
 	def deal_damage(target, area, damage)
 		#deal damage to target at area
-	
+		puts "\n in deal_damage, dealing #{target} #{damage} #{area} damage"
 		if area == "hp"
 			target.current_hp = target.current_hp-damage
 			target.save		
@@ -130,7 +143,7 @@ module EncountersHelper
 			target.charisma = target.charisma-damage
 			target.save			
 		else
-			puts "I dont know where to deal damage! target: #{target}, area: #{area}"
+			puts "\n I dont know where to deal damage! target: #{target}, area: #{area}"
 		end				
 	end
 

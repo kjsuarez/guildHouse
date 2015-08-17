@@ -4,7 +4,10 @@ class MonstersController < ApplicationController
 	end
 
 	def create
-		@monster = Monster.new(monster_params)
+		@user = current_user
+		@monster = @user.monsters.new(monster_params)
+		@monster.save
+		redirect_to @user
 	end
 
 ############

@@ -1,0 +1,47 @@
+<h2> Build a new combat action </h2>
+
+<%= form_for(@action) do |f| %>
+	<%= f.label :name %>
+ 	<%= f.text_field(:name) %>
+
+ 	<p>
+		<%= f.label :damage%>
+		<%= f.text_field(:damage, :placeholder => "example: 5, 1d4") %>
+	</p>
+
+	<p>
+		<%= f.label :area%>
+		<%= f.select(:area, [['hp'],['strength'],['dexterity'],['constitution'],['intelligence'],['wisdom'],['charisma']]) %>
+	</p>
+
+	<p>
+		<%= f.label :onset%>
+		<%= f.number_field(:onset, :value => 0) %>
+	</p>
+
+	<p>
+		<%= f.label :saving_throw%>
+		<%= f.number_field(:saving_throw, :value => 10) %>
+		
+		<%= f.select(:saving_value, [['fortitude'],['reflex'],['will']]) %>	
+	</p>
+
+	<p>
+		<%= f.label :frequency%>
+		<%= f.number_field(:frequency, :value => 0) %>
+	</p>
+
+	<p>
+		<%= f.label :limit%>
+		<%= f.number_field(:limit, :value => 0) %>
+	</p>
+
+	<p>
+		<%= f.label :cure%>
+		<%= f.number_field(:cure, :value => 1) %>
+	</p>
+
+ 	<p>
+		<%= f.submit %>
+	</p>
+<% end %>

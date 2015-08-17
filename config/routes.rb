@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   get 'milestones' => 'static_pages#milestones'
   resources :users do
     resources :statements
-    resources :monsters
+    
   end 
-  
+  resources :monsters
   get 'all_users' => 'users#index'
   get 'signup' => 'users#new'
   
@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     resources :encounters 
   end
 
+  resources :combat_actions
+
   get 'play/:id' => 'games#play'
   get 'game_stuff' => 'static_pages#games'
   get 'choose_character' => 'games#pick_character'
@@ -30,6 +32,7 @@ Rails.application.routes.draw do
   get 'your_games' => 'games#games_you_play' 
 
   post 'statements/do_action' => 'statements#do_action'
+  post 'statements/make_saves' => 'statements#make_saves'
   #resources :statements, :collection=>{:new => :get, :do_action => :post}
   
   # The priority is based upon order of creation: first created -> highest priority.

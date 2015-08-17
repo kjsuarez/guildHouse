@@ -1,6 +1,7 @@
 class StatementsController < ApplicationController	
 	include CharactersHelper
 	include EncountersHelper
+	include CharactersHelper
 	
 	def new
 		@user = current_user
@@ -75,9 +76,9 @@ class StatementsController < ApplicationController
 		@current_actor = current_actor(params[:player_type], params[:player_id])
 		puts "\n From do_action, some one is trying to perform #{@action.name}"
 		current_player = current_turn(@encounter.turn,turn_order)
-		puts "From do_action guildHouse thinks it's #{is_monster?(current_player)}'s turn"  
+		puts "From do_action guildHouse thinks it's #{name_of(current_player)}'s turn"  
 
-		puts "\ncomparing actor: #{is_monster?(@current_actor)} and player: #{is_monster?(current_player)}"
+		puts "\ncomparing actor: #{name_of(@current_actor)} and player: #{name_of(current_player)}"
 		if @current_actor == current_player #if it's your turn, guildHouse accepts the action, else flash an error
 			@targets = []
 			puts "\nguildHouse thinks its the actors turn"
@@ -91,7 +92,6 @@ class StatementsController < ApplicationController
 			end
 			puts "\n made it past setting targets"
 			act(@current_actor,@action,@targets)
-			puts "turn method: #{next_turn(@encounter.turn, @players.length)}"
 			@encounter.turn = next_turn(@encounter.turn, @players.length)
 			@encounter.save
 			take_turn(current_player)
@@ -102,6 +102,44 @@ class StatementsController < ApplicationController
 			flash[:danger] = "you can't act until your turn"
   			redirect_to "/games/#{ params[:game_id] }/statements/new"
 		end 		
+	end
+
+	def make_saves
+  		@game = Game.find(params[:game_id])
+  		@encounter = @game.encounters.where(active:true)[0]
+		@current_actor = current_actor(params[:player_type], params[:player_id])
+		con = score_to_mod(@current_character.constitution)
+		dex = score_to_mod(@current_character.dexterity)
+		wis = score_to_mod(@current_character.wisdom)
+		saves = []
+		ailments = @current_character.condition_counters
+		ailments.each do |ailment|
+			id = ailment.id
+			value = params["save_for_ailment"+ailment.id.to_s]
+			type = ailment.combat_action.saving_throw
+			saves << { id: id, value: value, type: type}
+		end		
+		
+		#loop through saves
+		saves.each do |save|
+			#add appropriate modifiers
+			if save[:type] == "will"
+				save[:value] += score_to_mod(wis)
+			elsif save[:type] == "reflex"
+				save[:value] += score_to_mod(dex)
+			elsif save[:type] == "fortitude"
+				save[:value] += score_to_mod(wis)				
+			end
+
+			if save[:value] >= save.combat_action.saving_value
+				save.combat_action.cure -= 1
+			else	
+				#deal damage
+			end
+			#make a statement
+			#set current_character.saves_rolled to true and save
+			#redirect to new_statement
+		end						
 	end
 
 ##############
@@ -128,7 +166,7 @@ class StatementsController < ApplicationController
 				puts "the condition_hash: #{condition_hash}"
 				target.condition_counters.new(condition_hash)
 				target.save
-				result = "#{is_monster?(actor)} used #{action.name} on #{is_monster?(target)}"
+				result = "#{name_of(actor)} used #{action.name} on #{name_of(target)}"
 				statement = target.encounter.game.statements.new(content: result)
 				statement.save
 				puts "target: #{target} was hit with action: #{action.name}"
@@ -139,7 +177,7 @@ class StatementsController < ApplicationController
 			targets.each do |target|
 				deal_damage(target, action.area, get_damage(action))
 				puts "target: #{target} was hit with action: #{action}"
-				result = "#{is_monster?(actor)} used #{action.name} on #{is_monster?(target)}"
+				result = "#{name_of(actor)} used #{action.name} on #{name_of(target)}"
 				statement = target.encounter.game.statements.new(content: result)
 				statement.save
 			end		

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150815034618) do
+ActiveRecord::Schema.define(version: 20150817033857) do
 
   create_table "action_ownerships", force: :cascade do |t|
     t.integer  "monster_id"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20150815034618) do
     t.integer  "intelligence"
     t.integer  "wisdom"
     t.integer  "charisma"
+    t.boolean  "saves_rolled"
   end
 
   add_index "character_data", ["character_id"], name: "index_character_data_on_character_id"
@@ -96,7 +97,10 @@ ActiveRecord::Schema.define(version: 20150815034618) do
     t.integer  "frequency"
     t.integer  "limit"
     t.integer  "cure"
+    t.integer  "user_id"
   end
+
+  add_index "combat_actions", ["user_id"], name: "index_combat_actions_on_user_id"
 
   create_table "condition_counters", force: :cascade do |t|
     t.datetime "created_at",         null: false
@@ -174,6 +178,7 @@ ActiveRecord::Schema.define(version: 20150815034618) do
     t.integer  "intelligence"
     t.integer  "wisdom"
     t.integer  "charisma"
+    t.boolean  "saves_rolled"
   end
 
   create_table "monster_ownerships", force: :cascade do |t|
