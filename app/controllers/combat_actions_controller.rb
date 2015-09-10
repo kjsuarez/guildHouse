@@ -13,7 +13,7 @@ class CombatActionsController < ApplicationController
 ############
 
 	def action_params
-		params.require(:combat_action).permit(:area,:onset,:saving_throw,:saving_value,
+		params.require(:combat_action).permit(:name,:damage,:area,:onset,:saving_throw,:saving_value,
 				:frequency,:limit,:cure)
 	end
 end

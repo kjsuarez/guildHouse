@@ -3,7 +3,7 @@ class GamesController < ApplicationController
 
 	before_action :character_belongs_to_game, only: [:edit]
 	def new
-		@game = Game.new
+		@game = Game.new@user.monsters
 	end
 
 	def create
@@ -15,8 +15,12 @@ class GamesController < ApplicationController
 	end
 
 	def show
-
+		@user = current_user
 	 	@game = Game.find(params[:id])
+	 	@monsters = @user.monsters
+	 	@current_monsters = @game.monsters
+	 	@characters = @game.characters
+	 	@encounters = @game.encounters
 	end 
 
 	def edit
@@ -81,6 +85,16 @@ class GamesController < ApplicationController
 
 	def games_you_run
 		@your_games = Game.where(gamemaster_id: current_user.id)
+	end
+
+	def add_monsters_to_games
+		@game = Game.find(params[:id])
+		@user = current_user
+		@monsters = @user.monsters
+	end
+
+	def save_monsters_to_games
+		
 	end
 #################
     def game_params

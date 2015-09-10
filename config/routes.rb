@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   put 'add_to_game' => 'games#add_character_to_game'
   get 'games/:id/characters' => 'games#game_characters'
   get 'your_games' => 'games#games_you_play' 
+  get 'games/:id/add_monsters' => 'games#add_monsters_to_games'
 
   post 'statements/do_action' => 'statements#do_action'
   post 'statements/make_saves' => 'statements#make_saves'

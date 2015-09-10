@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+body {
+    background-image: url("crumpled_paper_texture.jpg");
+    background-color: #cccccc;
+   	background-size: 100% 100%;
+}

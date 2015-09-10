@@ -1,43 +1,44 @@
 <h2> Build a new combat action </h2>
 
 <%= form_for(@action) do |f| %>
-	<%= f.label :name %>
+	<%= f.label :name , "name your stupid thing:"%>
  	<%= f.text_field(:name) %>
 
  	<p>
-		<%= f.label :damage%>
+		<%= f.label :damage, "the damage your attack does:"%>
 		<%= f.text_field(:damage, :placeholder => "example: 5, 1d4") %>
 	</p>
 
 	<p>
-		<%= f.label :area%>
+		<%= f.label :area, "the stat it does damage to:"%>
 		<%= f.select(:area, [['hp'],['strength'],['dexterity'],['constitution'],['intelligence'],['wisdom'],['charisma']]) %>
 	</p>
 
 	<p>
-		<%= f.label :onset%>
+		<%= f.label :onset, "the number of rounds before it takes effect:"%>
 		<%= f.number_field(:onset, :value => 0) %>
 	</p>
 
 	<p>
-		<%= f.label :saving_throw%>
-		<%= f.number_field(:saving_throw, :value => 10) %>
+		<%= f.label :saving_value, "the saving throw needed to prevent it:"%>
+		<%= f.number_field(:saving_value, :value => 10) %>
 		
-		<%= f.select(:saving_value, [['fortitude'],['reflex'],['will']]) %>	
+		<%= f.select(:saving_throw, [['fortitude','fortitude'],['reflex','reflex'],['will','will']]) %>	
 	</p>
 
 	<p>
-		<%= f.label :frequency%>
+		<%= f.label :frequency, "It occurs once every"%>
 		<%= f.number_field(:frequency, :value => 0) %>
+		<%= f.label :frequency, "rounds"%>
 	</p>
 
 	<p>
-		<%= f.label :limit%>
+		<%= f.label :limit, "The number of rounds before it subsides naturally:"%>
 		<%= f.number_field(:limit, :value => 0) %>
 	</p>
 
 	<p>
-		<%= f.label :cure%>
+		<%= f.label :cure, "number of successful saving throws to overcome it:"%>
 		<%= f.number_field(:cure, :value => 1) %>
 	</p>
 
