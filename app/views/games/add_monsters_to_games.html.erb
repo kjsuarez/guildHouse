@@ -1,10 +1,9 @@
-<% count = 0 %>
 
-<%= form_tag("/statements/do_action", method: "post") do %>
+
+<%= form_tag("/games/add_monsters", method: "post") do %>
 	<% @monsters.each do |monster| %>
-		<%= label_tag("monster"+count.to_s, monster.name) %>
-		<%= check_box_tag("monster"+count.to_s) %>
-		<% count +=1 %>
+		<%= label_tag("monster"+monster.id.to_s, monster.name) %>
+		<%= check_box_tag("monster"+monster.id.to_s) %>
 	<% end %>
 	<%= submit_tag("add to your game") %>
 	<%= hidden_field_tag(:game_id, @game.id) %>

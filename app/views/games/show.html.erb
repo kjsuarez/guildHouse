@@ -1,16 +1,21 @@
-<p> body: <%= @game.body %> </p>
-
-<% @monsters.each do |monster| %>
-	<%= monster.name %>
-	<%= "hi" %>
+<h3>characters playing this game</h3>
+<% @characters.each do |character| %>
+	<p><%= "#{character.name} the #{character.race} #{character.character_class}" %></p>
 <% end %>
 
-<%= form_tag("/games/add_monster", method: "post") do %>
+
+<h3>monsters included in this game</h3>
+<% @monsters.each do |monster| %>
+	<p><%= monster.name %></p>
+<% end %>
+
+<h3>add monsters to this game</h3>
+<%= form_tag("/games/add_monsters", method: "post") do %>
 	<% @monsters.each do |monster| %>
-		<%= label_tag("monster"+count.to_s, monster.name) %>
-		<%= check_box_tag("monster"+count.to_s) %>
-		<% count +=1 %>
+		<p><%= label_tag("monster"+monster.id.to_s, monster.name) %>
+		<%= check_box_tag("monster"+monster.id.to_s) %>
+		</p>		
 	<% end %>
-	<%= submit_tag("add to game") %>
-	<%= hidden_field_tag(:game_id, @game.id) %>		
+	<%= submit_tag("add to your game") %>
+	<%= hidden_field_tag(:game_id, @game.id) %>
 <% end %>

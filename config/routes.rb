@@ -34,6 +34,8 @@ Rails.application.routes.draw do
 
   post 'statements/do_action' => 'statements#do_action'
   post 'statements/make_saves' => 'statements#make_saves'
+  post 'games/add_monsters' => 'games#save_monsters_to_games'
+  post 'monsters/add_abilities' => 'monsters#save_abilities_to_monsters'
   #resources :statements, :collection=>{:new => :get, :do_action => :post}
   
   # The priority is based upon order of creation: first created -> highest priority.

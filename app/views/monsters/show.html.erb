@@ -1,0 +1,37 @@
+<h3><%= @monster.name %></h3>
+<div id="monster-actions">
+	<p>known abilities:</p>
+	<% @monster.combat_actions.each do |action| %>
+		<p> <%= action.name %> </p>
+		<p> <%="deals #{action.damage} damage to target's #{action.area}"%> </p>
+	<% end %>
+</div>
+
+<p>stats:</p>
+<div id="monster-stats">
+	<p> strength: <%= @monster.strength %> </p>
+	<p> intelligence: <%= @monster.intelligence %> </p>
+	<p> constitution: <%= @monster.constitution %> </p>
+	<p> wisdom: <%= @monster.wisdom %> </p>
+	<p> charisma: <%= @monster.charisma %> </p>
+	<p> AC (armour class): <%= @monster.ac %> </p>
+</div>
+<p>flavor text: <%= @monster.flavor_text %> </p>
+
+<div id="add-abilities-form">
+	<p>add new abilities:</p>
+
+	<%= form_tag("/monsters/add_abilities", method: "post") do %>
+		<% @abilities.each do |ability| %>
+			<%= label_tag("ability"+ability.id.to_s, ability.name) %>
+			<%= check_box_tag("ability"+ability.id.to_s) %>
+		<% end %>
+		<%= submit_tag("add abilities to your monster") %>
+		<%= hidden_field_tag(:monster_id, @monster.id) %>
+	<% end %>
+</div>
+
+
+
+
+

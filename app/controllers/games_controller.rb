@@ -94,7 +94,23 @@ class GamesController < ApplicationController
 	end
 
 	def save_monsters_to_games
-		
+		@game = Game.find(params[:game_id])
+		@user = current_user
+		@monsters = @user.monsters
+		targets = []
+		#loop through @monsters,
+		@monsters.each do |monster|
+			#if a parameter with that monsters id exists associate it to @game
+			if params["monster"+monster.id.to_s] == '1'
+				@game.monsters << monster
+			else
+				puts "#{monster} doesn't seem to be selected"	
+			end
+		end 
+		@game.save
+		puts "#{@game.monsters} "
+		#save @game
+		redirect_to @game
 	end
 #################
     def game_params
