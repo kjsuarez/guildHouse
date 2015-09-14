@@ -1,16 +1,19 @@
-<h1> welcome to guildHouse! </h1>
+<h1 id="home-title"> welcome to guildHouse! </h1>
 
 <% if logged_in? %>
-	<p> <%= link_to "DM a new game", "/games/new" %> </p>
-	<p> <%= link_to "join a game somebody else started", "/games" %> </p>
+	<div id="suggestions">
+		<p> <%= link_to "Start a new game", "/games/new", id: "button" %> </p>
+		<p> <%= link_to "Join a game somebody else started", "/games", id: "button" %> </p>
+	</div>
 <% else %>	
 	<p> why not 
-		<%= link_to "sign up", '/signup' %> 
+		<%= link_to "sign up", '/signup', id: "signup-button" %>
 		or 
 		<%= link_to "log on", '/login' %>
 		? </p>
 <% end %>
-<p> Or just checkout the 
+<p> Check out the 
 	<%= link_to "milestones page", '/milestones' %> 
-	or 
-	bug report </p>	
+</p>	
+<p> or find guilgHouse on
+	<%= link_to "gitHub", 'https://github.com/kjsuarez/guildHouse' %> </p>

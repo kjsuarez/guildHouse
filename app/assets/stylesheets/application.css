@@ -18,3 +18,13 @@ body {
     background-color: #cccccc;
    	background-size: 100% 100%;
 }
+
+a{
+	text-decoration: none;
+	
+}
+a:visited {
+    text-decoration: none;
+	color: black;
+
+}
