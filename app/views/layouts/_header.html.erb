@@ -8,8 +8,8 @@
 <% end %>
 
 
-<div class="horizontal">
-	<ul class="header">
+<div class="header">
+	<ul >
 		<li> <%= link_to "home",root_path, id: "tab"%> </li>
 		<% if logged_in? # method deffined in sessions_helper %>
 			<li> <%= link_to "profile", user_path(current_user), id: "tab" %>	 </li>

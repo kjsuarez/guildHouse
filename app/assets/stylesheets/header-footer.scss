@@ -1,10 +1,11 @@
-.horizontal{
+.header{
 	width: 101%;
     height: 30px;
     background-color: #36383B;
     margin: 0px 0px 0px -10px;
 }
-.header{
+
+.header ul{
 	background-color: red;
 	text-align: center;
     display: block;
@@ -23,10 +24,29 @@ li {
 #tab{
 	color: #fff;
 	background-color: #36383B;
-	text-align: center;
+	text-align: bottom;
 	display: block;
   margin: -6px;
-  padding: 6px 16px 6px 20px;
-   
-    
+  padding: 6px 16px 6px 20px;     
 }
+
+#footer, #footer-background{
+  color: white;
+  position: absolute;
+  bottom: -25%;
+  height: 45px;
+  width: 100%;
+  text-align: center;
+  padding: 20px; 
+  
+}
+#footer a{
+  color: white;
+}
+
+#footer-background{
+  background-color: #36383B;
+  z-index: -1;
+  opacity: .9;
+}
+
