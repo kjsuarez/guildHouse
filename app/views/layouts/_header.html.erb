@@ -8,19 +8,19 @@
 <% end %>
 
 
+<div class="horizontal">
+	<ul class="header">
+		<li> <%= link_to "home",root_path, id: "tab"%> </li>
+		<% if logged_in? # method deffined in sessions_helper %>
+			<li> <%= link_to "profile", user_path(current_user), id: "tab" %>	 </li>
+			<li> <%= link_to "characters", "/characters", id: "tab" %> </li>
+			<li> <%= link_to "games", your_games_path, id: "tab" %> </li>
+			<li><%= link_to "Log out", logout_path, method: "delete", id: "tab" %> </li>
+		<% else %>
+			<li> <%= link_to "sign up",signup_path, id: "tab" %> </li>
+			<li> <%= link_to "login",login_path, id: "tab" %> </li>
+		<% end %>
+	</ul>
+</div>
 
-
-<%= link_to "home",root_path, class: "btn btn-lg btn-primary" %>
-<% if logged_in? # method deffined in sessions_helper %>
-	<%= link_to "profile", user_path(current_user) %>		
-	<%= link_to "characters", "/characters" %>
-	
-	<%= link_to "games", your_games_path %>
-	
-		
-	<%= link_to "Log out", logout_path, method: "delete" %> 
-<% else %>
-	<%= link_to "sign up",signup_path, class: "btn btn-lg btn-primary" %>
-	<%= link_to "login",login_path, class: "btn btn-lg btn-primary" %>
-<% end %>
 

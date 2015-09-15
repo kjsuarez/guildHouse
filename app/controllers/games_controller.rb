@@ -3,7 +3,8 @@ class GamesController < ApplicationController
 
 	before_action :character_belongs_to_game, only: [:edit]
 	def new
-		@game = Game.new@user.monsters
+		@user = current_user
+		@game = Game.new
 	end
 
 	def create

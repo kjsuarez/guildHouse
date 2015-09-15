@@ -13,6 +13,20 @@
  *= require_tree .
  *= require_self
  */
+*{
+	box-sizing: border-box;
+}
+
+html, body{ 
+  margin:0;
+  padding:0px;
+  width:100%;
+}
+
+.container{
+	margin: 10px;
+}
+
 body {
     background-image: url("crumpled_paper_texture.jpg");
     background-color: #cccccc;
@@ -21,7 +35,6 @@ body {
 
 a{
 	text-decoration: none;
-	
 }
 a:visited {
     text-decoration: none;

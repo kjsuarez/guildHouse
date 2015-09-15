@@ -1,0 +1,32 @@
+.horizontal{
+	width: 101%;
+    height: 30px;
+    background-color: #36383B;
+    margin: 0px 0px 0px -10px;
+}
+.header{
+	background-color: red;
+	text-align: center;
+    display: block;
+    list-style-type: none;
+    margin: 0;
+    padding-right: 10px;
+
+}
+li {
+    float: left;
+    display: list-item;
+    position: relative;
+  	padding: 6px;
+  	margin: 0px;
+}
+#tab{
+	color: #fff;
+	background-color: #36383B;
+	text-align: center;
+	display: block;
+  margin: -6px;
+  padding: 6px 16px 6px 20px;
+   
+    
+}
