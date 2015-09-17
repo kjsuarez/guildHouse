@@ -1,0 +1,33 @@
+.form-container{
+margin: auto;
+    width: 40%;
+    height: 400px;
+
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+    padding: 10px;
+}
+.form{
+	width: 100%;
+    padding: 10px;
+}
+input[type=submit] {
+	padding:5px 15px; 
+	background:#1f69d0; 
+	border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+    font-size: 120%;
+}
+input[type=text] {
+	padding:5px;
+	margin-right: 10px;
+	border:2px solid #ccc; 
+	width: 500px;
+	font-size: 120%;    
+}
+#game-form-title{
+	font-size: 200%;
+	text-align: center;
+}

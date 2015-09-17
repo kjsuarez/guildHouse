@@ -1,10 +1,12 @@
-<header>I'm a new game</header>
+<header id="game-form-title" >Just give your new game a name</header>
 
-
-<%= form_for @game do |f| %>
-
-<p>
-  <%= f.submit %>
-</p>
-
-<% end %>
+<div class="form-container">
+	<%= form_for @game, :html => {:class => 'form'} do |f| %>
+		<p>
+ 			<%= f.text_field(:name) %>
+ 		</p>
+		<p id="submit-button">
+		  <%= f.submit %>
+		</p>
+	<% end %>
+</div>

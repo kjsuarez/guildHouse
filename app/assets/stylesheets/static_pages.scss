@@ -13,18 +13,23 @@
 	font-size: 400%;
 }
 #suggestions{
+	height: 140px;
+	display: block;
 	text-align: center;
 	font-family: Georgia;
 	font-size: 120%;
-	margin: 30px;
-	background-color: red;
+	margin: 0px;
 	
+	padding-left: 30%;
 }
 
 #button{
+	text-align: center;
 	background-color: #1f69d0;
   	color: #ffffff;
   	padding: 10px;
   	border-radius: 10px;
+	display: block;
+	width: 50%
 
 }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817033857) do
+ActiveRecord::Schema.define(version: 20150917020116) do
 
   create_table "action_ownerships", force: :cascade do |t|
     t.integer  "monster_id"
@@ -146,9 +146,11 @@ ActiveRecord::Schema.define(version: 20150817033857) do
     t.string   "statement"
     t.integer  "gamemaster_id"
     t.integer  "turn"
+    t.string   "name"
   end
 
   add_index "games", ["character_id"], name: "index_games_on_character_id"
+  add_index "games", ["name"], name: "index_games_on_name", unique: true
   add_index "games", ["turn"], name: "index_games_on_turn"
 
   create_table "item_ownerships", force: :cascade do |t|
