@@ -4,15 +4,58 @@
 	<p> email: <%= @user.email %> </p>
 	
 </h1>
- 
-<% if @characters[0].nil? %>
-  <%= link_to "hey buddy, how about you make a character?", new_character_path %>
-<% else %>   
-  <h3> your characters: </h3>
-  <% @characters.each do |character| %>
-    <li>
-      <%= link_to character.race, character %> 
-      <%= link_to character.character_class, character %>
-    </li>
-  <% end %>
-<% end %>
+
+<div id="user-container">
+    <ul id="users-things">
+  
+    <li id="characters-menu">
+    characters
+    <ul id="sub-things">
+      <li id="new"><%= link_to "make new character", "/characters/new" %></li>     
+      <% @characters.each do |character| %>
+        <li>
+          <%= link_to character.race, character %> 
+          <%= link_to character.character_class, character %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li id="games-menu">
+    games
+    <ul id="sub-things">
+      <li id="new"><%= link_to "start a new game", "/games/new" %></li>     
+      <% @games.each do |game| %>
+        <li>
+          <%= link_to game.name, game %> 
+        </li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li id="monsters-menu">
+    monsters
+    <ul id="sub-things">
+      <li id="new"><%= link_to "make a new monster", "/monsters/new" %></li>
+      <% @monsters.each do |monster| %>
+        <li>
+          <%= link_to monster.name, monster %> 
+        </li>
+      <% end %>
+    </ul>
+  </li>
+    
+  <li id="combat-actions-menu">
+    combat actions
+    <ul id="sub-things">
+      <li id="new"><%= link_to "create a new combat action", "/combat_actions/new" %></li>     
+      <% @combat_actions.each do |action| %>
+        <li>
+          <%= link_to action.name, action %> 
+        </li>
+      <% end %>
+    </ul>
+  </li>
+
+</ul>
+</div>

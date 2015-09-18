@@ -25,7 +25,14 @@ html, body{
 }
 
 .container{
-	margin: 10px;
+	margin: 0px;
+  position: relative;
+      min-height: 100%;
+}
+
+#content{
+  padding: 10px;
+      padding-bottom: 100px;
 }
 
 body {

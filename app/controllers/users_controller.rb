@@ -11,7 +11,10 @@ before_action :correct_user, only: [:show]
 
 	def show
 		@user = User.find(params[:id])
-		@characters = Character.where(user_id: current_user.id)					
+		@characters = @user.characters
+		@monsters = @user.monsters
+		@games = Game.where(gamemaster_id: @user.id)
+		@combat_actions = @user.combat_actions					
 	end
 
 	def new
