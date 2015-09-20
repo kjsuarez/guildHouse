@@ -3,19 +3,32 @@
 	<p><%= "#{character.name} the #{character.race} #{character.character_class}" %></p>
 <% end %>
 
-
+<% if @user.id != @game.gamemaster_id  %>
+	<% if !@user.characters.nil? %>
+		<% options = [] %>
+		<%  @user.characters.each do |character|; options<<[character.name,character.id]; end %>
+		<%=form_tag("/join_game_requests/send", method: "post") do %>
+			<%= select_tag(:character, options_for_select(options)) %>		
+		<% end %>
+		
+		<%= submit_tag("request to join game") %>
+		<%= hidden_field_tag(:game_id, @game.id) %>
+	<% end %>
+<% end %>
 <h3>monsters included in this game</h3>
 <% @monsters.each do |monster| %>
 	<p><%= monster.name %></p>
 <% end %>
 
-<h3>add monsters to this game</h3>
-<%= form_tag("/games/add_monsters", method: "post") do %>
-	<% @monsters.each do |monster| %>
-		<p><%= label_tag("monster"+monster.id.to_s, monster.name) %>
-		<%= check_box_tag("monster"+monster.id.to_s) %>
-		</p>		
-	<% end %>
-	<%= submit_tag("add to your game") %>
-	<%= hidden_field_tag(:game_id, @game.id) %>
+<% if @user.id == @game.gamemaster_id  %>
+	<h3>add monsters to this game</h3>
+	<%= form_tag("/games/add_monsters", method: "post") do %>
+		<% @monsters.each do |monster| %>
+			<p><%= label_tag("monster"+monster.id.to_s, monster.name) %>
+			<%= check_box_tag("monster"+monster.id.to_s) %>
+			</p>		
+		<% end %>
+		<%= submit_tag("add to your game") %>
+		<%= hidden_field_tag(:game_id, @game.id) %>
+	<% end %>	
 <% end %>

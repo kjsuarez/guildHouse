@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'join_game_requests/send_request'
+
+  get 'join_game_requests/answer_request'
+
   root 'static_pages#home'
   get 'milestones' => 'static_pages#milestones'
   resources :users do
@@ -36,6 +40,8 @@ Rails.application.routes.draw do
   post 'statements/make_saves' => 'statements#make_saves'
   post 'games/add_monsters' => 'games#save_monsters_to_games'
   post 'monsters/add_abilities' => 'monsters#save_abilities_to_monsters'
+  post 'join_game_requests/send' => 'join_game_requests#send_request'
+  post 'join_game_requests/answer' => 'join_game_requests#answer_request'
   #resources :statements, :collection=>{:new => :get, :do_action => :post}
   
   # The priority is based upon order of creation: first created -> highest priority.

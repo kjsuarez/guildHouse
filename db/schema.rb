@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917020116) do
+ActiveRecord::Schema.define(version: 20150920020812) do
 
   create_table "action_ownerships", force: :cascade do |t|
     t.integer  "monster_id"
@@ -163,6 +163,18 @@ ActiveRecord::Schema.define(version: 20150917020116) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
+
+  create_table "join_game_requests", force: :cascade do |t|
+    t.integer  "player_id"
+    t.integer  "master_id"
+    t.integer  "character_id"
+    t.integer  "game_id"
+    t.boolean  "answer"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "join_game_requests", ["master_id"], name: "index_join_game_requests_on_master_id"
 
   create_table "monster_data", force: :cascade do |t|
     t.integer  "current_hp"

@@ -3,13 +3,25 @@
 
 <% if logged_in? %>
 		<h1> your characters </h1>
-	<ul class="characters">  
-			<% @characters.each do |character| %>
-   			<li>
-		    	<%= link_to "#{character.race} #{character.character_class}", character %>
-	    	</li>
-  		<% end %>
+
+
+<div id='sub-container'>
+	<ul id='super-list'>
+		<li id="characters-menu">
+		    characters
+		    <ul id="sub-things">
+		      <li id="new"><%= link_to "make new character", "/characters/new" %></li>     
+		      <% @characters.each do |character| %>
+		        <li>
+		          <%= link_to character.race, character %> 
+		          <%= link_to character.character_class, character %>
+		        </li>
+		      <% end %>
+		    </ul>
+	  </li>
 	</ul>
+</div>
+
 <% end %>
 
 

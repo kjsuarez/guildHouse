@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player_id: 1
+  master_id: 1
+  character_id: 1
+  answer: false
+
+two:
+  player_id: 1
+  master_id: 1
+  character_id: 1
+  answer: false

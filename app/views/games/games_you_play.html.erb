@@ -1,18 +1,30 @@
-<p> <%= link_to "DM a new game", "/games/new" %> </p>
-<p> <%= link_to "join a game somebody else started", "/games" %> </p>
+<h2> games </h2>
+<div id='sub-container'>
+	<ul id='super-list'>
+		<li id="your-games-menu">
+		    games you run
+		    <ul id="sub-things">
+		      <li id="new"><%= link_to "start a new game", "/games/new" %></li>     
+		      <% @your_games.each do |game| %>
+				<% @owner = User.find(game.gamemaster_id) %>
+		        <li>
+					<%= link_to "#{ @owner.email}'s game", new_game_statement_path(game) %>
+		        </li>
+		      <% end %>
+		    </ul>
+	  </li>
 
-<h3> games you're playing </h3>
-<% @games_you_play.each do |game| %>
-	<% @owner = User.find(game.gamemaster_id) %>
-	<ul>
-		<%= link_to "#{ @owner.email}'s game", new_game_statement_path(game) %>
+	  <li id="games-you-play-menu">
+		    games you're playing
+		    <ul id="sub-things">
+		      <li id="new"><%= link_to "request to join a game (not running yet)", "#" %></li>     
+				<% @games_you_play.each do |game| %>
+					<% @owner = User.find(game.gamemaster_id) %>
+		        <li>
+				<%= link_to "#{ @owner.email}'s game", new_game_statement_path(game) %>
+		        </li>
+		      <% end %>
+		    </ul>
+	  </li>
 	</ul>
-<% end %>
-
-<h3> games you run </h3>
-<% @your_games.each do |game| %>
-	<% @owner = User.find(game.gamemaster_id) %>
-	<ul>
-		<%= link_to "#{ @owner.email}'s game", new_game_statement_path(game) %>
-	</ul>
-<% end %>
+</div>
