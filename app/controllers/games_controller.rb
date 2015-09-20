@@ -18,6 +18,10 @@ class GamesController < ApplicationController
 	def show
 		@user = current_user
 	 	@game = Game.find(params[:id])
+	 	@master_id = @game.gamemaster_id 
+	 	@is_playing_game = @game.characters.where(user_id: @user.id)
+	 	@can_make_request = (JoinGameRequest.where(player_id: @user.id, game_id: params[:id])[0].nil?|| !@is_playing_game)
+	 	@requests = JoinGameRequest.where(game_id: params[:id]) 
 	 	@monsters = @user.monsters
 	 	@current_monsters = @game.monsters
 	 	@characters = @game.characters

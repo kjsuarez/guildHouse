@@ -10,5 +10,30 @@ class JoinGameRequestsController < ApplicationController
   end
 
   def answer_request
+  	@request = JoinGameRequest.find(params[:request_id])
+  	if params[:answer] == "true"
+  		puts "yo so answer was true"
+		@user = User.find(@request.player_id)
+		@character = Character.find(@request.character_id)
+		@character.update_attribute(:game_id, @request.game_id)
+		@request.destroy!
+		redirect_to "/games/#{params[:game]}/characters"  		
+  	else
+  		puts "ok so answer was not true.. it was #{params[:answer]}"
+  		@request.destroy!
+  	end
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+

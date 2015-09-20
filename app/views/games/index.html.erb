@@ -9,8 +9,7 @@ id: <%= @user.id %>
 
 		<% if  my_character[0].nil? %>
 			<li>
-	     	 <%= link_to "#{user.email}'s game", controller: "games",
-	     	  action: "pick_character", guy: @user.id, game: game.id%>       
+	     	 <%= link_to "#{user.username}'s game", "/games/#{game.id}"%>       
 	    	</li>
 		<% else %>
 			<% guy = my_character[0] %>

@@ -4,15 +4,15 @@
 <% end %>
 
 <% if @user.id != @game.gamemaster_id  %>
+
 	<% if !@user.characters.nil? %>
-		<% options = [] %>
-		<%  @user.characters.each do |character|; options<<[character.name,character.id]; end %>
-		<%=form_tag("/join_game_requests/send", method: "post") do %>
-			<%= select_tag(:character, options_for_select(options)) %>		
-		<% end %>
 		
-		<%= submit_tag("request to join game") %>
-		<%= hidden_field_tag(:game_id, @game.id) %>
+		<% if @can_make_request %>
+
+			<%= link_to "ask to join game", controller: "join_game_requests", action: "send_request", player: @user.id, master: @master_id, character: 12, game: params[:id], method: :post%>			
+		<% end %>
+ 
+
 	<% end %>
 <% end %>
 <h3>monsters included in this game</h3>
@@ -21,6 +21,10 @@
 <% end %>
 
 <% if @user.id == @game.gamemaster_id  %>
+	<% @requests.each do |request| %>
+		<%= link_to "accept", controller: "join_game_requests", action: "answer_request", request_id: request.id, player: request.player_id, master: request.master_id, character: request.character_id, answer: true, game: params[:id], method: :post%>
+	<% end %>
+
 	<h3>add monsters to this game</h3>
 	<%= form_tag("/games/add_monsters", method: "post") do %>
 		<% @monsters.each do |monster| %>
