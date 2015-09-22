@@ -1,38 +1,68 @@
-<h3>characters playing this game</h3>
-<% @characters.each do |character| %>
-	<p><%= "#{character.name} the #{character.race} #{character.character_class}" %></p>
-<% end %>
+<div id='show-game-container'>
+	<h2 id='title'> <%= @game.name %> </h2>
 
-<% if @user.id != @game.gamemaster_id  %>
+	<%= link_to "moop",  new_user_statement_path(:user_id => @user.id, :game_id => 8)%>
 
-	<% if !@user.characters.nil? %>
+	<div id='show-game-characters'>
+		<h3>characters playing this game</h3>
+		<% @characters.each do |character| %>
+			<p><%= link_to "#{character.name}", "/characters/#{character.id}" %></p> 
+		<% end %>
+	</div>
+
+	<% if @user.id != @game.gamemaster_id  %>
+		<% if !@user.characters.nil? %>		
+			<% if @can_make_request %>
+				<ul id="super-list">
+					<li id="your-games-menu">
+					    ask to join game
+					    <ul id="sub-things">				         
+					      <% @user.characters.each do |character| %>
+					        <li>
+								<%= link_to "with #{character.name}", controller: "join_game_requests", action: "send_request", player: @user.id, master: @master_id, character: character.id, game: params[:id], method: :post%>
+					        </li>
+					      <% end %>
+					    </ul>
+				  </li>
+				</ul>			
+			<% end %>
+		<% end %>
+	<% end %>
+	<div id='show-game-monsters'>
+		<h3>monsters included in this game</h3>
+			<% @monsters.each do |monster| %>
+				<p><%= link_to "#{monster.name}", "/monsters/#{monster.id}" %></p>
+			<% end %>
+	</div>
+	
+	<% if @user.id == @game.gamemaster_id  %>
+
 		
-		<% if @can_make_request %>
+		<div id='new-monster-form'>
+			<h3>add monsters to this game</h3>
+			<%= form_tag("/games/add_monsters", method: "post") do %>
+				<% @monsters.each do |monster| %>
+					<p><%= label_tag("monster"+monster.id.to_s, monster.name) %>
+					<%= check_box_tag("monster"+monster.id.to_s) %>
+					</p>		
+				<% end %>
+				<%= submit_tag("add to your game") %>
+				<%= hidden_field_tag(:game_id, @game.id) %>
+			<% end %>
+		</div>
+			
+		<div id='requests'>
+			<h3> requests to join </h3>
+			<% @requests.each do |request| %>
+				<% guy = Character.find(request.player_id) %>
 
-			<%= link_to "ask to join game", controller: "join_game_requests", action: "send_request", player: @user.id, master: @master_id, character: 12, game: params[:id], method: :post%>			
-		<% end %>
- 
-
+				<%= link_to "#{guy.name}", "/characters/#{guy.id}" %>
+				<%= link_to "accept", controller: "join_game_requests", action: "answer_request", request_id: request.id, player: request.player_id, master: request.master_id, character: request.character_id, answer: true, game: params[:id], method: :post%>
+				<%= link_to "decline", controller: "join_game_requests", action: "answer_request", request_id: request.id, player: request.player_id, master: request.master_id, character: request.character_id, answer: false, game: params[:id], method: :post%>		
+			<% end %>
+		</div>	
 	<% end %>
-<% end %>
-<h3>monsters included in this game</h3>
-<% @monsters.each do |monster| %>
-	<p><%= monster.name %></p>
-<% end %>
 
-<% if @user.id == @game.gamemaster_id  %>
-	<% @requests.each do |request| %>
-		<%= link_to "accept", controller: "join_game_requests", action: "answer_request", request_id: request.id, player: request.player_id, master: request.master_id, character: request.character_id, answer: true, game: params[:id], method: :post%>
-	<% end %>
+</div>
 
-	<h3>add monsters to this game</h3>
-	<%= form_tag("/games/add_monsters", method: "post") do %>
-		<% @monsters.each do |monster| %>
-			<p><%= label_tag("monster"+monster.id.to_s, monster.name) %>
-			<%= check_box_tag("monster"+monster.id.to_s) %>
-			</p>		
-		<% end %>
-		<%= submit_tag("add to your game") %>
-		<%= hidden_field_tag(:game_id, @game.id) %>
-	<% end %>	
-<% end %>
+

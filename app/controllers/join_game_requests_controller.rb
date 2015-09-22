@@ -17,10 +17,13 @@ class JoinGameRequestsController < ApplicationController
 		@character = Character.find(@request.character_id)
 		@character.update_attribute(:game_id, @request.game_id)
 		@request.destroy!
-		redirect_to "/games/#{params[:game]}/characters"  		
+    flash[:success] = "you accepted #{@user.name}'s request"
+		redirect_to "/games/#{params[:game]}"  		
   	else
   		puts "ok so answer was not true.. it was #{params[:answer]}"
   		@request.destroy!
+      flash[:success] = "you declined #{@user.name}'s request"
+      redirect_to "/games/#{params[:game]}" 
   	end
   end
 end

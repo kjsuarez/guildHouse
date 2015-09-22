@@ -1,6 +1,6 @@
 <% @user = current_user %>
 id: <%= @user.id %>
-<ul class="games">
+<ul id="games-index">
   <h1> choose a game to join </h1>
   <% @games.each do |game| %>
 	<% if game.gamemaster_id != nil && game.gamemaster_id != current_user.id %>
@@ -20,3 +20,4 @@ id: <%= @user.id %>
 
   <% end %>
 </ul>
+

@@ -17,7 +17,7 @@
 	  <li id="games-you-play-menu">
 		    games you're playing
 		    <ul id="sub-things">
-		      <li id="new"><%= link_to "request to join a game (not running yet)", "#" %></li>     
+		      <li id="new"><%= link_to "request to join a game (not running yet)", games_path %></li>     
 				<% @games_you_play.each do |game| %>
 					<% @owner = User.find(game.gamemaster_id) %>
 		        <li>

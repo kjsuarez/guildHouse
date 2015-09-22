@@ -3,6 +3,8 @@ class StatementsController < ApplicationController
 	include EncountersHelper
 	include CharactersHelper
 	
+	before_action :belongs_to_this_game, only: [:new]
+
 	def new
 		@user = current_user
 		@game = Game.find(params[:game_id])
@@ -186,6 +188,14 @@ class StatementsController < ApplicationController
 
 	def statement_params # selected attributes of user object passed as a hash
 		params.require(:statement).permit(:content, :game_id, :character_id )
+	end
+
+	def belongs_to_this_game
+
+		@game = Game.find(params[:game_id])
+		unless @game.gamemaster_id == current_user.id || params[:user_id] == current_user.id 
+			redirect_to root_path
+		end
 	end
 end
 

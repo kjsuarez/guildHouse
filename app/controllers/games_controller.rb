@@ -2,6 +2,7 @@ class GamesController < ApplicationController
 	include CharactersHelper
 
 	before_action :character_belongs_to_game, only: [:edit]
+	before_action :logged_in_user, only: [:new, :edit, :show]
 	def new
 		@user = current_user
 		@game = Game.new
@@ -134,6 +135,15 @@ class GamesController < ApplicationController
     			redirect_to root_url
     	end	
     end
+
+    def logged_in_user
+    	puts "here I am checking to see if you're logged in"
+    	unless logged_in?
+    		flash[:danger] = "please login to create a character"
+    		redirect_to root_url
+    	end		
+	end
+
     def my_character
     	@game = Game.find(params[:id])
     	@character = @game.characters.where(user_id: current_user.id)[0]
